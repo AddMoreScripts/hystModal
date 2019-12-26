@@ -2,6 +2,8 @@
 
 Легкая и гибкая Javascript  библиотека для создания модальных окон.
 
+Страница документации: [https://addmorescripts.github.io/hystModal/](https://addmorescripts.github.io/hystModal/)
+
 ## Преимущества.
 
  - **Размер - 6 kB, никаких зависимостей**. HystModal написан на чистом JavaScript, не требует подключения jQuery  или иных фреймворков для
