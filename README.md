@@ -28,10 +28,10 @@ README in Russian: [https://github.com/AddMoreScripts/hystModal/blob/master/READ
 
         <div class="hystmodal" id="myModal" aria-hidden="true">
             <div class="hystmodal__wrap">
-                    <div class="hystmodal__window" role="dialog" aria-modal="true">
-                        <button data-hystclose>Close</button>  
-                        <!-- You modal HTML markup -->
-                    </div>
+                <div class="hystmodal__window" role="dialog" aria-modal="true">
+                    <button data-hystclose>Close</button>  
+                    <!-- You modal HTML markup -->
+                </div>
             </div> 
         </div>
 
