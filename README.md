@@ -53,7 +53,7 @@ Lightweight and flexible JavaScript modal library
 
 Title of data-attribute, which opening the modals, is defined by value of the property linkAttributeName of the configurations object.
 
-6.При необходимости измените настройки.
+6. If necessary, change the сonfiguration.
 
 
 ## Configuration
