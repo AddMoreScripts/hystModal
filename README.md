@@ -6,7 +6,7 @@ Documentation: [https://addmorescripts.github.io/hystModal/](https://addmorescri
 
 In Russian: [https://addmorescripts.github.io/hystModal/index_ru.html](https://addmorescripts.github.io/hystModal/index_ru.html)
 
-[https://addmorescripts.github.io/hystModal/index_ru.html](README in Russian)  
+README in Russian: [https://github.com/AddMoreScripts/hystModal/blob/master/README_ru.md](https://github.com/AddMoreScripts/hystModal/blob/master/README_ru.md)
 
 ## Features.
 
