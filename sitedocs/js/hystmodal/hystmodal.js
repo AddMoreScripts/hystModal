@@ -1,3 +1,9 @@
+/*  HystModal - Lightweight and flexible JavaScript modal library
+    https://github.com/AddMoreScripts/hystModal
+    version 0.1
+*/
+
+
 ;(function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         define(factory);
@@ -37,7 +43,7 @@
         }
         this.config = {
             backscroll: (typeof props.backscroll !== "undefined") ? props.backscroll : true,
-            linkAttributeName: (typeof props.linkAttributeName !== "undefined") ? props.linkAttributeName : "",
+            linkAttributeName: (typeof props.linkAttributeName !== "undefined") ? props.linkAttributeName : false,
             closeOnOverlay: (typeof props.closeOnOverlay !== "undefined") ? props.closeOnOverlay : true,
             closeOnEsc: (typeof props.closeOnEsc !== "undefined") ? props.closeOnEsc : true,
             closeOnButton: (typeof props.closeOnButton !== "undefined") ? props.closeOnButton : true,

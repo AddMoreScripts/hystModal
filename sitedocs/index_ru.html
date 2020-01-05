@@ -154,7 +154,7 @@
 
         <div class="text-content scr4__text">
             <p><span class="num">1.</span> Скачайте и распакуйте последнюю версию hystModal</p>
-            <p class="text-links"><a href="zip/hystModal-v0.1.zip">Скачать HystModal (v.0.1)</a>
+            <p class="text-links"><a href="hystmodal-v0.1.zip">Скачать HystModal (v.0.1)</a>
             <a href="https://github.com/AddMoreScripts/hystModal"><img height="18" src="img/github-brands.svg" class="link-icon" alt="">GitHub</a></p>
             <!-- <p>Или установите в ваш проект с помощью npm:</p>
             <div class="text-code">
@@ -175,7 +175,7 @@
 <pre><code class="html">&lt;div class=&quot;hystmodal&quot; id=&quot;myModal&quot; aria-hidden=&quot;true&quot;&gt;
     &lt;div class=&quot;hystmodal__wrap&quot;&gt;
         &lt;div class=&quot;hystmodal__window&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot;&gt;
-            &lt;button data-hystclose>Закрыть&lt;/button&gt;
+            &lt;button data-hystclose class=&quot;hystmodal__close&quot;&gt;Закрыть&lt;/button&gt;
             &lt;!-- Ваш HTML код модального окна --&gt;
         &lt;/div&gt;
     &lt;/div&gt;
@@ -189,7 +189,7 @@
 
                 <p><small><span class="cd">.hystmodal__window</span> - Блок модального окна. Для доступности рекомендуется добавить атрибут <span class="cd">aria-labelledby</span> с описанием назначения окна.</small></p>
 
-                <p><small><span class="cd">[data-hystclose]</span> - Элемент с атрибутом <span class="cd">data-hystclose</span> закрывает текущее открытое окно, если это разрешено в настройках. Может быть в любом месте внутри <span class="cd">.hystmodal__window</span></small></p>
+                <p><small><span class="cd">[data-hystclose]</span> - Элемент с атрибутом <span class="cd">data-hystclose</span> закрывает текущее открытое окно, если это разрешено в настройках. Может быть в любом месте внутри <span class="cd">.hystmodal__window</span>. Если применить класс <span class="cd">.hystmodal__close</span>, то кнопка будет оформлена в виде значка.</small></p>
 
                 <p class="mt-1"><span class="num">4.</span>Разместите следующий JS код для активации и подключения модального окна:</p>
                 <div class="text-code">
@@ -646,7 +646,7 @@
                             <a href="#" class="loginblock__link">Forget Password</a>
                         </div>
                         <div class="formsubmit">
-                            <button type="submit" class="button">Submit Form (example)</button>
+                            <button type="submit" class="button" onclick="alert('Форма работает'); return false;">Submit Form (example)</button>
                         </div>
                     </form>
                 </div>

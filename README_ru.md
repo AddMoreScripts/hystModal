@@ -27,7 +27,7 @@
 		<div class="hystmodal" id="myModal" aria-hidden="true">
 			<div class="hystmodal__wrap">
 				<div class="hystmodal__window" role="dialog" aria-modal="true">
-					<button data-hystclose>Закрыть</button>  
+					<button data-hystclose class="hystmodal__close">Закрыть</button>  
 					<!-- Ваш HTML код модального окна -->
 				</div>
 			</div> 

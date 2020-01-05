@@ -1,3 +1,10 @@
+/*  
+    HystModal - Lightweight and flexible JavaScript modal library
+    https://github.com/AddMoreScripts/hystModal
+    version 0.1
+*/
+
+
 ;(function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         define(factory);
@@ -178,8 +185,6 @@
                 return;
             }
             if (this.config.closeOnButton && e.target.closest('[data-hystclose]')) {
-                console.log('нажата кнопочка');
-                console.log(this);
                 this.close();
             }
         }.bind(this));

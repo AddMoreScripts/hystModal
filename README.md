@@ -25,7 +25,7 @@ Lightweight and flexible JavaScript modal library
         <div class="hystmodal" id="myModal" aria-hidden="true">
             <div class="hystmodal__wrap">
                 <div class="hystmodal__window" role="dialog" aria-modal="true">
-                    <button data-hystclose>Close</button>  
+                    <button data-hystclose class="hystmodal__close">Close</button>  
                     <!-- You modal HTML markup -->
                 </div>
             </div> 
