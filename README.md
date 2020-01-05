@@ -19,7 +19,7 @@ README in Russian: [https://github.com/AddMoreScripts/hystModal/blob/master/READ
 
 ## Usage
 1. Download and unpack the latest version of hystModal
-2. Connect hystModal.js and hystModal.css to the page:
+2. Connect hystmodal.min.js and hystmodal.min.css to the page:
 
         <link rel="stylesheet" href="hystmodal.min.css">
         <script src="hystmodal.min.js"></script>
@@ -48,7 +48,7 @@ README in Russian: [https://github.com/AddMoreScripts/hystModal/blob/master/READ
 
         const myModal = new HystModal.modal({
             linkAttributeName: "data-hystmodal",
-            //settings (optional). see API
+            //settings (optional). see Configuration
         });
 
 5.Add attribute data-hystmodal on element that will be opening the modal window. Value of the attribute must be CSS selector (id or class name of the window). For example:
