@@ -1,9 +1,11 @@
 # HystModal
 
-ЛLightweight and flexible JavaScript modal library
+Lightweight and flexible JavaScript modal library
 
-Docunentation: [https://addmorescripts.github.io/hystModal/](https://addmorescripts.github.io/hystModal/)
+Documentation: [https://addmorescripts.github.io/hystModal/](https://addmorescripts.github.io/hystModal/)
+
 In Russian: [https://addmorescripts.github.io/hystModal/index_ru.html](https://addmorescripts.github.io/hystModal/index_ru.html)
+
 [https://addmorescripts.github.io/hystModal/index_ru.html](README in Russian)  
 
 ## Features.
