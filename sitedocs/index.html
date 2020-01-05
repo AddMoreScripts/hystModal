@@ -194,6 +194,7 @@
                 <p class="mt-1"><span class="num">4.</span>Place following JS code for activating functionality of modals:</p>
                 <div class="text-code">
 <pre><code class="js">const myModal = new HystModal.modal({
+    linkAttributeName: "data-hystmodal",
 	//settings (optional). see API
 });
 </code></pre>
@@ -660,12 +661,10 @@
         <div class="hystmodal__wrap">
             <div class="hystmodal__window" role="dialog" aria-modal="true">
                 <button class="hystmodal__close" data-hystclose>Закрыть</button>
-                <iframe src="https://www.youtube.com/embed/nT14mlv92t4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="http://www.youtube.com/embed/nT14mlv92t4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </div>
-
-
 
     <script src="js/hystmodal/hystmodal.js"></script>
     <script src="js/highlight/highlight.pack.js"></script>
