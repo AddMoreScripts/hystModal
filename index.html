@@ -154,7 +154,7 @@
 
         <div class="text-content scr4__text">
             <p><span class="num">1.</span> Download and unpack the latest version of hystModal</p>
-            <p class="text-links"><a href="zip/hystModal-v0.1.zip">Download HystModal (v.0.1)</a>
+            <p class="text-links"><a href="hystmodal-v0.1.zip">Download HystModal (v.0.1)</a>
             <a href="https://github.com/AddMoreScripts/hystModal"><img height="18" src="img/github-brands.svg" class="link-icon" alt="">GitHub</a></p>
             <!-- <p>Или установите в ваш проект с помощью npm:</p>
             <div class="text-code">
@@ -175,7 +175,7 @@
 <pre><code class="html">&lt;div class=&quot;hystmodal&quot; id=&quot;myModal&quot; aria-hidden=&quot;true&quot;&gt;
     &lt;div class=&quot;hystmodal__wrap&quot;&gt;
         &lt;div class=&quot;hystmodal__window&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot;&gt;
-            &lt;button data-hystclose>Close&lt;/button&gt;
+            &lt;button data-hystclose class=&quot;hystmodal__close&quot;&gt;Закрыть&lt;/button&gt;
             &lt;!-- You modal HTML markup --&gt;
         &lt;/div&gt;
     &lt;/div&gt;
@@ -189,11 +189,12 @@
 
                 <p><small><span class="cd">.hystmodal__window</span> - Modal box. WAI-ARIA recommends adding attribute <span class="cd">aria-labelledby</span> with descriptions of the modal for better accessibility.</small></p>
 
-                <p><small><span class="cd">[data-hystclose]</span> - selector with <span class="cd">data-hystclose</span> attribute is closing current modal window on mouse click, if this set on in configuration. This selector may contains in any place inside <span class="cd">.hystmodal__window</span></small></p>
+                <p><small><span class="cd">[data-hystclose]</span> - selector with <span class="cd">data-hystclose</span> attribute is closing current modal window on mouse click, if this set on in configuration. This selector may contains in any place inside <span class="cd">.hystmodal__window</span>. If add <span class="cd">.hystmodal__close</span> class to the button, it will be styled like an icon.</small></p>
 
                 <p class="mt-1"><span class="num">4.</span>Place following JS code for activating functionality of modals:</p>
                 <div class="text-code">
 <pre><code class="js">const myModal = new HystModal.modal({
+    linkAttributeName: "data-hystmodal",
 	//settings (optional). see API
 });
 </code></pre>
@@ -638,7 +639,7 @@
                             <input type="password" name="username" placeholder="Enter password" value="">
                         </div>
                         <div class="loginblock__bottom flexi">
-                            <label class="formcheckbox">
+                            <label class="formcheckbox" tabindex="0">
                                 <input type="checkbox" name="remember">
                                 <span class="flexi"><i class="checkplace"><img src="img/check.svg" alt=""></i>Remember me</span>
                             </label>
@@ -660,12 +661,10 @@
         <div class="hystmodal__wrap">
             <div class="hystmodal__window" role="dialog" aria-modal="true">
                 <button class="hystmodal__close" data-hystclose>Закрыть</button>
-                <iframe src="https://www.youtube.com/embed/nT14mlv92t4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="http://www.youtube.com/embed/nT14mlv92t4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </div>
-
-
 
     <script src="js/hystmodal/hystmodal.js"></script>
     <script src="js/highlight/highlight.pack.js"></script>

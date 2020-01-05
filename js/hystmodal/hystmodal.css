@@ -33,8 +33,8 @@
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     opacity: 1;
-    /* pointer-events: none; */
-    display: flex !important;
+    pointer-events: none;
+    display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
     z-index: 99;
@@ -66,7 +66,7 @@
     background: #fff;
     width: 600px;
     max-width: 100%;
-    overflow: hidden;
+    overflow: visible;
     transition: transform 0.15s ease 0s, opacity 0.15s ease 0s;
     transform: scale(0.9);
     opacity: 0;
@@ -74,4 +74,33 @@
 .hystmodal--active .hystmodal__window{
     transform: scale(1);
     opacity: 1;
+}
+.hystmodal__close{
+    position: absolute;
+    z-index: 10;
+    top:0;
+    right: -40px;
+    display: block;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' stroke='%23fff' stroke-linecap='square' stroke-miterlimit='50' stroke-width='2' d='M22 2L2 22'/%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='square' stroke-miterlimit='50' stroke-width='2' d='M2 2l20 20'/%3E%3C/svg%3E");
+    background-size: 100% 100%;
+    border: none;
+    font-size: 0;
+    cursor: pointer;
+}
+@media all and (max-width:767px){
+    .hystmodal__close{
+        top:10px;
+        right: 10px;
+        width: 24px;
+        height: 24px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' stroke='%23111' stroke-linecap='square' stroke-miterlimit='50' stroke-width='2' d='M22 2L2 22'/%3E%3Cpath fill='none' stroke='%23111' stroke-linecap='square' stroke-miterlimit='50' stroke-width='2' d='M2 2l20 20'/%3E%3C/svg%3E");
+    }
+    .hystmodal__window{
+        margin: 0;
+    }
 }
