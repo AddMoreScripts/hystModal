@@ -2,11 +2,7 @@
 
 Lightweight and flexible JavaScript modal library
 
-Documentation: [https://addmorescripts.github.io/hystModal/](https://addmorescripts.github.io/hystModal/)
-
-In Russian: [https://addmorescripts.github.io/hystModal/index_ru.html](https://addmorescripts.github.io/hystModal/index_ru.html)
-
-README in Russian: [https://github.com/AddMoreScripts/hystModal/blob/master/README_ru.md](https://github.com/AddMoreScripts/hystModal/blob/master/README_ru.md)
+[Documentation](https://addmorescripts.github.io/hystModal/) | [In Russian](https://addmorescripts.github.io/hystModal/index_ru.html) | [README in Russian](https://github.com/AddMoreScripts/hystModal/blob/master/README_ru.md)
 
 ## Features.
 
@@ -51,7 +47,7 @@ README in Russian: [https://github.com/AddMoreScripts/hystModal/blob/master/READ
             //settings (optional). see Configuration
         });
 
-5.Add attribute data-hystmodal on element that will be opening the modal window. Value of the attribute must be CSS selector (id or class name of the window). For example:
+5. Add attribute data-hystmodal on element that will be opening the modal window. Value of the attribute must be CSS selector (id or class name of the window). For example:
 
         <a href="#" data-hystmodal="#myModal">Open modal with id=myModal</a>
 
