@@ -49,17 +49,19 @@
 .formcheckbox{
     position: relative;
     display: block;
-    outline: none;
     cursor: pointer;
-}
-.formcheckbox:focus{
 }
 .formcheckbox input{
     position: absolute;
-    visibility: hidden;
+    /* visibility: hidden; */
     top:0;
     left: 0;
+    opacity: 0;
     pointer-events: none;
+}
+.formcheckbox:focus-within{
+    outline: 2px dotted #afb3b9;
+    outline-offset:2px;
 }
 .formcheckbox input+span{
     height: 21px;
