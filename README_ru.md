@@ -2,7 +2,7 @@
 
 Легкая и гибкая Javascript  библиотека для создания модальных окон.
 
-Страница документации: [https://addmorescripts.github.io/hystModal/](https://addmorescripts.github.io/hystModal/)
+[Документация](https://addmorescripts.github.io/hystModal/index_ru.html)
 
 ## Преимущества.
 
@@ -17,21 +17,21 @@
 
 ## Как подключить?
 1. Скачайте и распакуйте последнюю версию hystModal
-2. Подключите hystModal.js  и hystModal.css  на веб страницу.
+2. Подключите hystmodal.min.js и hystmodal.min.css на веб страницу.
 
-	   <link rel="stylesheet" href="hystmodal.min.css">
-	   <script src="hystmodal.min.js"></script>
+		<link rel="stylesheet" href="hystmodal.min.css">
+		<script src="hystmodal.min.js"></script>
 
 3. Поместите следующую разметку в ваш HTML  документ.
 
-        <div class="hystmodal" id="myModal" aria-hidden="true">
-            <div class="hystmodal__wrap">
-                    <div class="hystmodal__window" role="dialog" aria-modal="true">
-                        <button data-hystclose>Закрыть</button>  
-                        <!-- Ваш HTML код модального окна -->
-                    </div>
-            </div> 
-        </div>
+		<div class="hystmodal" id="myModal" aria-hidden="true">
+			<div class="hystmodal__wrap">
+				<div class="hystmodal__window" role="dialog" aria-modal="true">
+					<button data-hystclose>Закрыть</button>  
+					<!-- Ваш HTML код модального окна -->
+				</div>
+			</div> 
+		</div>
 
    
 **.hystmodal**  - Основной селектор модального окна. Должен иметь уникальный  id. Этот селектор не получает фокус в закрытом состоянии из-за CSS правила  visbility:hidden. Аттрибут  aria-hidden  переключается автоматически.
@@ -44,13 +44,14 @@
 
 4. Разместите следующий JS код для активации и подключения модального окна:
 
-        const myModal = new HystModal.modal({
-            //настройки, см. API
-        });
+		const myModal = new HystModal.modal({
+			linkAttributeName: "data-hystmodal",
+			//настройки, см. API
+		});
 
 5.Добавьте атрибут data-hystmodal к элементу открывающему модальное окно. Значением может быть идентификатор или имя класса окна. например:
 
-        <a href="#" data-hystmodal="#myModal">Показать окно с id=myModal</a>
+	<a href="#" data-hystmodal="#myModal">Показать окно с id=myModal</a>
 
 Название data-атрибута, который открывает окна определяется значением cсвойства linkAttributeName объекта настроек. По умолчанию он равен data-hystmodal.
 
@@ -69,3 +70,43 @@
 |catchFocus|Bolean|true|Если true – при открытии зацикливает фокус на активных элементах внутри окна. При закрытии окна – фокус возвращается на предыдущий селектор.|
 |beforeOpen|function|Пустая функция|Функция обратного вызова. Запускается перед открытием окна. В функцию передаётся объект модального окна окна.|
 |afterClose|function|Пустая функция|Функция обратного вызова. Запускается после закрытия окна. В функцию передаётся объект последнего модального окна.|
+
+## Пример конфигурации
+
+	const myModal = new HystModal.modal({
+		linkAttributeName: 'data-hystmodal',
+		catchFocus: true,
+		waitTransitions: true,
+		closeOnEsc: false,
+		beforeOpen: function(modal){
+			console.log('Message before opening the modal');
+			console.log(modal); //modal window object
+		},
+		afterClose: function(modal){
+			console.log('Message after modal has closed');
+			console.log(modal); //modal window object
+		},
+	});
+
+## API
+
+При создании экземпляра класса HystModal.modal командой new HystModal.modal({ ... }), в переменной myModal будет находится объект, имеющий свойства и методы.
+
+### Свойства
+
+|Название свойства|Тип|Описание|
+|--|--|--|
+|isOpened|Bolean|Индикатор открытия окна. True – окно открыто в текущий момент. По умолчанию – false. Некоторые приватные методы ориентируются на значение данного свойства.|
+|openedWindow|DOM node|Селектор открытого окна. Если окно закрыто – содержит селектор последнего открытого окна.|
+|starter|DOM node|Селектор с которого было открыто модальное окно. Используется для возвращения фокуса на элемент.|
+|config|object|Объект настроек. См. конфигурация.|
+
+
+### Методы
+
+
+|Название метода|Описание|
+|--|--|
+|init()|Инициализирует функционал модальных окон и подключает обработку событий на странице. Если указано свойство linkAttributeName, то init запускается автоматически при создании экземпляра класса HystModal.modal. Вы можете указать linkAttributeName после создания пустого экземпляра класса HystModal.modal, тогда вручную вызовите myModal.init(). Инициализация может происходить только один раз.|
+|open(selector)|Открывает модальное окно. selector – селектор окна в виде строки, например, myModal.open(“#modal-1”). Если «selector» не передан – открывается последнее открытое окно, либо не происходит никаких действий. Если новое окно открывается пока старое не закрыто, сначала происходит закрытие предыдущего окна, а после открывается новое.|
+|close()|Закрывает текущее открытое модальное окно.|
