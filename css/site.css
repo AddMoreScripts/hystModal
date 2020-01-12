@@ -98,7 +98,7 @@ a:hover{
 .header__main h1 small{
     display: block;
     margin-top: 20px;
-    font-size: 400;
+    font-weight: 500;
     text-transform: none;
     font-size: 21px;
     line-height: 30px;
