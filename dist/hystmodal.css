@@ -91,6 +91,11 @@
     border: none;
     font-size: 0;
     cursor: pointer;
+    outline: none;
+}
+.hystmodal__close:focus{
+    outline: 2px dotted #afb3b9;
+    outline-offset: 2px;
 }
 @media all and (max-width:767px){
     .hystmodal__close{

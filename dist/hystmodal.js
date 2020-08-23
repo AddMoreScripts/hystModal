@@ -42,6 +42,7 @@
         if (!props) {
             props = {};
         }
+        var self = this;
         this.config = {
             backscroll: (typeof props.backscroll !== "undefined") ? props.backscroll : true,
             linkAttributeName: (typeof props.linkAttributeName !== "undefined") ? props.linkAttributeName : false,
@@ -156,6 +157,7 @@
 
 
     modal.prototype._closeAfterTransition = function (e) {
+        if(!e.target.matches('.hystmodal__window')) return;
         if (this.config.catchFocus) this.focusContol();
         this._bodyScrollControl();
         this.isOpened = false;

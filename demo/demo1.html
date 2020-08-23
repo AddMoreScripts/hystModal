@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hystmodal Demo 1</title>
+    <link rel="stylesheet" href="../dist/hystmodal.css">
+    <style>
+
+
+    </style>
+</head>
+<body>
+    
+    <button data-hystmodal="#demo1">Open demo</button>
+
+
+
+    <div class="hystmodal" id="demo1" aria-hidden="true">
+        <div class="hystmodal__wrap">
+            <div class="hystmodal__window" role="dialog" aria-modal="true">
+                <button data-hystclose class="hystmodal__close">Закрыть</button>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, voluptas tenetur numquam perferendis saepe nostrum totam aperiam odio. Animi soluta rem corporis dolor!</p>
+                <h1>Lorem, ipsum dolor.</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, ut! Ipsam nulla at minima impedit rem? Eligendi quas quo accusantium officia qui debitis commodi fugit quasi eaque nulla veritatis asperiores, quaerat fuga perspiciatis beatae quidem, porro repellendus nostrum eius velit, necessitatibus nesciunt a. Perspiciatis assumenda exercitationem numquam aspernatur cupiditate at provident reprehenderit fuga ad?</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../dist/hystmodal.js"></script>
+    <script>
+        const myModal = new HystModal.modal({
+            linkAttributeName: 'data-hystmodal',
+            catchFocus: true,
+            waitTransitions: true,
+            closeOnEsc: false,
+            beforeOpen: function(modal){
+                console.log('Message before opening the modal');
+                console.log(modal); //modal window object
+            },
+            afterClose: function(modal){
+                console.log('Message after modal has closed');
+                console.log(modal); //modal window object
+            },
+        });
+    </script>
+</body>
+</html>
