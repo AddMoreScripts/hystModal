@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="js/highlight/nord.css">
-    <link rel="stylesheet" href="js/hystmodal/hystmodal.css">
+    <link rel="stylesheet" href="js/hystmodal/hystmodal.min.css">
     <link rel="stylesheet" href="demo/simple.css">
     <link rel="stylesheet" href="css/site.css">
     <link rel="stylesheet" href="css/login.css">
@@ -52,10 +52,10 @@
             <div class="scr2__item flexi">
                 <img class="scr2__icon-1" src="img/icons/1-savings.svg" alt="">
                 <div class="scr2__text">
-                    <strong>Размер 6 kB, не требует <br>зависимостей.</strong>
+                    <strong>Размер 3 kB (gzip), не требует <br>зависимостей.</strong>
                     <span>HystMoмdal написан на чистом JavaScript,<br> 
                         не требует подключения jQuery или иных <br>
-                        фреймворков для работы
+                        библиотек для работы
                     </span>
                 </div>
             </div>
@@ -154,13 +154,13 @@
 
         <div class="text-content scr4__text">
             <p><span class="num">1.</span> Скачайте и распакуйте последнюю версию hystModal</p>
-            <p class="text-links"><a href="hystmodal-v0.1.zip">Скачать HystModal (v.0.1)</a>
+            <p class="text-links"><a href="hystmodal-v0.2.zip">Скачать HystModal (v.0.2)</a>
             <a href="https://github.com/AddMoreScripts/hystModal"><img height="18" src="img/github-brands.svg" class="link-icon" alt="">GitHub</a></p>
             <!-- <p>Или установите в ваш проект с помощью npm:</p>
             <div class="text-code">
                 <pre><code class="html">npm install hystmodal --save</code></pre>
             </div> -->
-            <p class="mt-1"><span class="num">2.</span>Подключите hystModal.js и hystModal.css на веб страницу:</p>
+            <p class="mt-1"><span class="num">2.</span>Подключите hystmodal.min.js и hystmodal.min.css на веб страницу:</p>
             <div class="text-code">
                 <pre><code class="html">&lt;link rel=&quot;stylesheet&quot; href=&quot;hystmodal.min.css&quot;&gt;</code></pre>
                 <pre><code class="html">&lt;script src=&quot;hystmodal.min.js&quot;&gt;&lt;/script&gt;</code></pre>
@@ -193,7 +193,7 @@
 
                 <p class="mt-1"><span class="num">4.</span>Разместите следующий JS код для активации и подключения модального окна:</p>
                 <div class="text-code">
-<pre><code class="js">const myModal = new HystModal.modal({
+<pre><code class="js">const myModal = new HystModal({
     linkAttributeName: "data-hystmodal",
     // настройки (не обязательно), см. API
 });
@@ -233,7 +233,7 @@
                     String
                 </div>
                 <div class="configtable__col">
-                    Пустая строка
+                    'data-hystmodal'
                 </div>
                 <div class="configtable__col">
                     Определяет data-атрибут элемента, клик по которому открывает модальное окно. Значение этого атрибута должно соответствовать селектору окна, которое необходимо открыть. Если не задано, то обработчики событий задействованы не будут.
@@ -353,7 +353,7 @@
         <div class="block-title block-title--white">Пример конфигурации</div>
 
         <div class="text-code config__example">
-<pre><code class="js">const myModal = new HystModal.modal({
+<pre><code class="js">const myModal = new HystModal({
     linkAttributeName: 'data-hystmodal',
     catchFocus: true,
     waitTransitions: true,
@@ -384,7 +384,7 @@
     <div class="container shorttext">
         <div class="block-title">API</div>
         <div class="text-content">
-            <p>При создании экземпляра класса <span class="cd">HystModal.modal</span> командой <span class="cd">new HystModal.modal({ ... })</span>, в&nbsp;переменной myModal будет находится объект, имеющий свойства и методы.</p>
+            <p>При создании экземпляра класса <span class="cd">HystModal</span> командой <span class="cd">new HystModal({ ... })</span>, в&nbsp;переменной myModal будет находится объект, имеющий свойства и методы.</p>
 
             <h2>Свойства</h2>
 
@@ -458,7 +458,7 @@
                         init()
                     </div>
                     <div class="configtable__col">
-                        Инициализирует функционал модальных окон и подключает обработку событий на странице. Если указано свойство linkAttributeName, то init запускается автоматически при создании экземпляра класса <span class="cd">HystModal.modal</span>. Вы можете указать linkAttributeName после создания пустого экземпляра класса HystModal.modal, тогда вручную вызовите <span class="cd">myModal.init()</span>. Инициализация может происходить только один раз.
+                        Инициализирует функционал модальных окон и подключает обработку событий на странице. Если свойство <span class="cd">linkAttributeName</span> не равно false, то init запускается автоматически при создании экземпляра класса HystModal.modal. Вы можете указать <span class="cd">linkAttributeName:false</span>, а позже присвоить ему значение (например <span class="cd">myModal.config.linkAttributeName = 'data-othermodal'</span>), тогда вручную вызовите <span class="cd">myModal.init()</span>. Инициализация может происходить только один раз.
                     </div>
                 </div><!-- //configtable__row -->
 
@@ -574,51 +574,52 @@
 
 
 
-    <div class="hystmodal hystmodal--simple" id="modalSimple" aria-hidden="true">
-        <div class="hystmodal__wrap">
-            <div class="hystmodal__window" role="dialog" aria-modal="true">
-                <button class="hystmodal__close" data-hystclose>Закрыть</button>
-                <div class="hystmodal__styled">
-                    <div class="h1">Website Overview</div>
-                    <p>
-                        Websites have many functions and can be used in various fashions; a website can be a personal website, a commercial website, a government website or a non-profit organization website. Websites can be the work of an individual, a business or other organization, and are typically dedicated to a particular topic or purpose.
-                    </p>
-                    <p>Any website can contain a hyperlink to any other website, so the distinction between individual sites, as perceived by the user, can be blurred. Websites are written in, or converted to, HTML (Hyper Text Markup Language) and are accessed using a software interface classified as a user agent. </p>
-                    <p>text from <a href="https://en.wikipedia.org/wiki/Website">Wikipedia</a></p>
-                </div>
+<div class="hystmodal hystmodal--simple" id="modalSimple" aria-hidden="true">
+    <div class="hystmodal__wrap">
+        <div class="hystmodal__window" role="dialog" aria-modal="true">
+            <button class="hystmodal__close" data-hystclose>Закрыть</button>
+            <div class="hystmodal__styled">
+                <div class="h1">Website Overview</div>
+                <p>
+                    Websites have many functions and can be used in various fashions; a website can be a personal website, a commercial website, a government website or a non-profit organization website. Websites can be the work of an individual, a business or other organization, and are typically dedicated to a particular topic or purpose.
+                </p>
+                <p>Any website can contain a hyperlink to any other website, so the distinction between individual sites, as perceived by the user, can be blurred. Websites are written in, or converted to, HTML (Hyper Text Markup Language) and are accessed using a software interface classified as a user agent. </p>
+                <p>text from <a href="https://en.wikipedia.org/wiki/Website">Wikipedia</a></p>
+                <button data-hystmodal="#modalLong">Open long modal</button>
             </div>
         </div>
     </div>
+</div>
 
 
 
-    <div class="hystmodal hystmodal--simple" id="modalLong" aria-hidden="true">
-        <div class="hystmodal__wrap">
-            <div class="hystmodal__window hystmodal__window--long" role="dialog" aria-modal="true">
-                <button class="hystmodal__close" data-hystclose>Закрыть</button>
-                <div class="hystmodal__styled">
-                    <div class="h1">Website Overview</div>
-                    <p>
-                        Websites have many functions and can be used in various fashions; a website can be a personal website, a commercial website, a government website or a non-profit organization website. Websites can be the work of an individual, a business or other organization, and are typically dedicated to a particular topic or purpose.
-                    </p>
-                    <p>Any <a href="https://en.wikipedia.org/wiki/Website">website</a> can contain a hyperlink to any other website, so the distinction between individual sites, as perceived by the user, can be blurred. Websites are written in, or converted to, HTML (Hyper Text Markup Language) and are accessed using a software interface classified as a user agent. </p>
-                    <div class="h2">Static website</div>
-                    <p>A static website is one that has web pages stored on the server in the format that is sent to a client web browser. It is primarily coded in Hypertext Markup Language (HTML); Cascading Style Sheets (CSS) are used to control appearance beyond basic HTML. Images are commonly used to effect the desired appearance and as part of the main content. Audio or video might also be considered "static" content if it plays automatically or is generally non-interactive. This type of website usually displays the same information to all visitors. Similar to handing out a printed brochure to customers or clients, a static website will generally provide consistent, standard information for an extended period of time. Although the website owner may make updates periodically, it is a manual process to edit the text, photos and other content and may require basic website design skills and software. Simple forms or marketing examples of websites, such as classic website, a five-page website or a brochure website are often static websites, because they present pre-defined, static information to the user. This may include information about a company and its products and services through text, photos, animations, audio/video, and navigation menus.</p>
-                    <img src="demo/sample1.jpg" alt="Sample Image">
-                    <p>Static websites can be edited using four broad categories of software:</p>
-                    <button>Sample button</button>
-                    <ul>
-                        <li>Text editors, such as Notepad or TextEdit, where content and HTML markup are manipulated directly within the editor program</li>
-                        <li>WYSIWYG offline editors, such as Microsoft FrontPage and Adobe Dreamweaver (previously Macromedia Dreamweaver), with which the site is edited using a GUI and the final HTML markup is generated automatically by the editor software</li>
-                        <li>WYSIWYG online editors which create media rich online presentation like web pages, widgets, intro, blogs, and other documents.</li>
-                        <li>Template-based editors such as iWeb allow users to create and upload web pages to a web server without detailed HTML knowledge, as they pick a suitable template from a palette and add pictures and text to it in a desktop publishing fashion without direct manipulation of HTML code.</li>
-                    </ul>
-                    <p>text from <a href="https://en.wikipedia.org/wiki/Website">Wikipedia</a></p>
-                </div>
+<div class="hystmodal hystmodal--simple" id="modalLong" aria-hidden="true">
+    <div class="hystmodal__wrap">
+        <div class="hystmodal__window hystmodal__window--long" role="dialog" aria-modal="true">
+            <button class="hystmodal__close" data-hystclose>Закрыть</button>
+            <div class="hystmodal__styled">
+                <div class="h1">Website Overview</div>
+                <p>
+                    Websites have many functions and can be used in various fashions; a website can be a personal website, a commercial website, a government website or a non-profit organization website. Websites can be the work of an individual, a business or other organization, and are typically dedicated to a particular topic or purpose.
+                </p>
+                <p>Any <a href="https://en.wikipedia.org/wiki/Website">website</a> can contain a hyperlink to any other website, so the distinction between individual sites, as perceived by the user, can be blurred. Websites are written in, or converted to, HTML (Hyper Text Markup Language) and are accessed using a software interface classified as a user agent. </p>
+                <div class="h2">Static website</div>
+                <p>A static website is one that has web pages stored on the server in the format that is sent to a client web browser. It is primarily coded in Hypertext Markup Language (HTML); Cascading Style Sheets (CSS) are used to control appearance beyond basic HTML. Images are commonly used to effect the desired appearance and as part of the main content. Audio or video might also be considered "static" content if it plays automatically or is generally non-interactive. This type of website usually displays the same information to all visitors. Similar to handing out a printed brochure to customers or clients, a static website will generally provide consistent, standard information for an extended period of time. Although the website owner may make updates periodically, it is a manual process to edit the text, photos and other content and may require basic website design skills and software. Simple forms or marketing examples of websites, such as classic website, a five-page website or a brochure website are often static websites, because they present pre-defined, static information to the user. This may include information about a company and its products and services through text, photos, animations, audio/video, and navigation menus.</p>
+                <img src="https://addmorescripts.github.io/hystModal/demo/sample1.jpg" alt="Sample Image">
+                <p>Static websites can be edited using four broad categories of software:</p>
+                <button data-hystmodal="#modalSimple">Open simple modal</button>
+                <button>Another button</button>
+                <ul>
+                    <li>Text editors, such as Notepad or TextEdit, where content and HTML markup are manipulated directly within the editor program</li>
+                    <li>WYSIWYG offline editors, such as Microsoft FrontPage and Adobe Dreamweaver (previously Macromedia Dreamweaver), with which the site is edited using a GUI and the final HTML markup is generated automatically by the editor software</li>
+                    <li>WYSIWYG online editors which create media rich online presentation like web pages, widgets, intro, blogs, and other documents.</li>
+                    <li>Template-based editors such as iWeb allow users to create and upload web pages to a web server without detailed HTML knowledge, as they pick a suitable template from a palette and add pictures and text to it in a desktop publishing fashion without direct manipulation of HTML code.</li>
+                </ul>
+                <p>text from <a href="https://en.wikipedia.org/wiki/Website">Wikipedia</a></p>
             </div>
         </div>
     </div>
-
+</div>
 
 
 
@@ -661,14 +662,14 @@
         <div class="hystmodal__wrap">
             <div class="hystmodal__window" role="dialog" aria-modal="true">
                 <button class="hystmodal__close" data-hystclose>Закрыть</button>
-                <iframe src="https://www.youtube.com/embed/nT14mlv92t4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/nT14mlv92t4?enablejsapi=1&rel=0&showinfo=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </div>
 
 
 
-    <script src="js/hystmodal/hystmodal.js"></script>
+    <script src="js/hystmodal/hystmodal.min.js"></script>
     <script src="js/highlight/highlight.pack.js"></script>
     <script src="js/main.js"></script>
 </body>

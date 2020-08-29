@@ -3,13 +3,15 @@ hljs.initHighlightingOnLoad();
 
 // Modals
 if (typeof HystModal !== "undefined") {
-    var xMod = new HystModal.modal({
+    var xMod = new HystModal({
         linkAttributeName: 'data-hystmodal',
         catchFocus: true,
         afterClose: function(modal){
+            
+            //If Youtube video inside Modal, close it on modal closing
             let videoframe = modal.openedWindow.querySelector('iframe');
             if(videoframe){
-                videoframe.src = videoframe.src;
+                videoframe.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
             }
             
         }
