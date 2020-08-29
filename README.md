@@ -6,8 +6,8 @@ Lightweight and flexible JavaScript modal library
 
 ## Features.
 
-- **The size is 6 kB, doesn't require any dependencies**. Hystmomdal is written in pure JavaScript, does not require jQuery or other frameworks to work
-- **Carefully designed UX for ease of use**. Prevent scrolling of the background, three ways to close the window, accounting for the scroll bar, centering the modal.
+- **The size is 3 kB (gzip), doesn't need any dependencies**. HystModal is written in pure JavaScript, does not require jQuery or other libraries to work
+- **Carefully designed UX for ease of use**. Prevent scrolling of the background, three ways to close the window, scroll bar tracking, centering the modal.
 - **Full customizable by CSS.** Styles of the modal window and background is completely determined in CSS. Based on Flexbox, modals can have any CSS transitions.
 - **Without changing the DOM of page** Modal opening is performed only by CSS. All custom event listeners on elements inside the modal will not stop working.
 - **A11y and capture the focus.** Designed with accessibility in mind and WAI-ARIA recommendations. When you opened the modal focus is captures inside.
@@ -15,7 +15,7 @@ Lightweight and flexible JavaScript modal library
 
 ## Usage
 1. Download and unpack the latest version of hystModal
-2. Connect hystmodal.min.js and hystmodal.min.css to the page:
+2. Connect hystmodal.min.js and hystmodal.min.css from "dist" folder to the page:
 
         <link rel="stylesheet" href="hystmodal.min.css">
         <script src="hystmodal.min.js"></script>
@@ -42,7 +42,7 @@ Lightweight and flexible JavaScript modal library
 
 4. Place following JS code for activating functionality of modals:
 
-        const myModal = new HystModal.modal({
+        const myModal = new HystModal({
             linkAttributeName: "data-hystmodal",
             //settings (optional). see Configuration
         });
@@ -72,7 +72,7 @@ Title of data-attribute, which opening the modals, is defined by value of the pr
 
 ## Configuration example
 
-    const myModal = new HystModal.modal({
+    const myModal = new HystModal({
         linkAttributeName: 'data-hystmodal',
         catchFocus: true,
         waitTransitions: true,
@@ -90,7 +90,7 @@ Title of data-attribute, which opening the modals, is defined by value of the pr
 
 ## API
 
-When creating an instance of a class HystModal.modal by code new HystModal.modal({ ... }), variable myModal will contain object, which contain properties and methods.
+When creating an instance of a class HystModal by code new HystModal({ ... }), variable myModal will contain object, which contain properties and methods.
 
 
 ### Properties
@@ -109,7 +109,6 @@ When creating an instance of a class HystModal.modal by code new HystModal.modal
 
 |Title|Description|
 |--|--|
-|init()|Initializes the modal window functionality and enables event handling on the page. If the linkAttributeName property is specified, init runs automatically when an instance of the HystModal.modal is created. You can specify the linkAttributeName after creating an empty instance of the HystModal.modal, тthen manually call the myModal.init(). Initialization can only do once.|
+|init()|Initializes the modal window functionality and enables event handling on the page. If the linkAttributeName property is specified, init runs automatically when an instance of the HystModal is created. You can specify the linkAttributeName:false when creating instance of the HystModal, and add property later (for example: myModal.config.linkAttributeName = 'data-othermodal'). Then you must manually call the myModal.init(). Initialization can only do once.|
 |open(selector)|Open modal window. selector – a CSS selector of modal window as a string, for example: myModal.open("#modal-1"). If «selector» is not specified – will open last opened window, or there will be no action. If opening new window while the old one is not closed, the previous window is closed first, and then a new window is opened.|
-|starter|DOM node|Selector from which the modal window was opened. Used to return focus to an element.|
 |close()|Closes the currently open modal window.|
