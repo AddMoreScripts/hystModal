@@ -4,9 +4,11 @@
     left: 0;
     overflow: hidden;
 }
-
 .hystmodal__shadow{
     position: fixed;
+    border:none;
+    display: block;
+    width: 100%;
     top: 0;
     bottom: 0;
     right: 0;
@@ -22,7 +24,6 @@
     pointer-events: auto;
     opacity: 0.6;
 }
-
 .hystmodal {
     position: fixed;
     top: 0;
@@ -40,13 +41,13 @@
     z-index: 99;
     visibility: hidden;
 }
-
-.hystmodal--active {
+.hystmodal--active,
+.hystmodal--moved{
     opacity: 1;
     z-index: 99;
     pointer-events: auto;
+    visibility: visible;
 }
-
 .hystmodal__wrap {
     flex-shrink: 0;
     flex-grow: 0;
@@ -58,7 +59,6 @@
     align-items: center;
     justify-content: center;
 }
-
 .hystmodal__window {
     margin: 50px 0;
     flex-shrink: 0;
@@ -67,7 +67,7 @@
     width: 600px;
     max-width: 100%;
     overflow: visible;
-    transition: transform 0.15s ease 0s, opacity 0.15s ease 0s;
+    transition: transform 0.2s ease 0s, opacity 0.2s ease 0s;
     transform: scale(0.9);
     opacity: 0;
 }
@@ -91,6 +91,11 @@
     border: none;
     font-size: 0;
     cursor: pointer;
+    outline: none;
+}
+.hystmodal__close:focus{
+    outline: 2px dotted #afb3b9;
+    outline-offset: 2px;
 }
 @media all and (max-width:767px){
     .hystmodal__close{
