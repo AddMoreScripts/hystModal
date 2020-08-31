@@ -129,7 +129,8 @@
     <script src="../dist/hystmodal.min.js"></script>
     <script>
         const myModal = new HystModal({
-            // linkAttributeName: 'data-hystmodal',
+            // for dynamic init() of modals
+            // linkAttributeName: false,
             catchFocus: true,
             waitTransitions: true,
             closeOnEsc: true,
@@ -148,8 +149,9 @@
                 }
             },
         });
-        myModal.config.linkAttributeName = 'data-hystmodal';
-        myModal.init();
+        // for dynamic init() of modals
+        // myModal.config.linkAttributeName = 'data-hystmodal';
+        // myModal.init();
     </script>
 </body>
 </html>
