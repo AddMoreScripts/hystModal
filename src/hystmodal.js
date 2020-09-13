@@ -1,4 +1,4 @@
-export default class {
+export default class HystModal{
     constructor(props){
         let defaultConfig = {
             backscroll: true,
@@ -15,7 +15,12 @@ export default class {
         if(this.config.linkAttributeName){
             this.init();
         }
+        this._closeAfterTransition = this._closeAfterTransition.bind(this);
     }
+
+
+    static _shadow = false;
+
 
     init(){
         this.isOpened = false;
@@ -40,10 +45,12 @@ export default class {
             '[tabindex]:not([tabindex^="-"])'
         ];
         this._modalBlock = false;
-        this._closeAfterTransition = this._closeAfterTransition.bind(this),
-        this._shadow = document.createElement('button');
-        this._shadow.classList.add('hystmodal__shadow');
-        document.body.appendChild(this._shadow);
+
+        if(!HystModal._shadow){
+            HystModal._shadow = document.createElement('button');
+            HystModal._shadow.classList.add('hystmodal__shadow');
+            document.body.appendChild(HystModal._shadow);
+        }
         this.eventsFeeler();
     }
 
@@ -117,14 +124,13 @@ export default class {
         this._modalBlock = this.openedWindow.querySelector('.hystmodal__window');
         this.config.beforeOpen(this);
         this._bodyScrollControl();
-        this._shadow.classList.add("hystmodal__shadow--show");
+        HystModal._shadow.classList.add("hystmodal__shadow--show");
         this.openedWindow.classList.add("hystmodal--active");
         this.openedWindow.setAttribute('aria-hidden', 'false');
         if (this.config.catchFocus) this.focusContol();
         this.isOpened = true;
     }
 
-    
 
     close(){
         if (!this.isOpened) {
@@ -146,7 +152,7 @@ export default class {
         this.openedWindow.classList.remove("hystmodal--moved");
         this.openedWindow.removeEventListener("transitionend", this._closeAfterTransition);
         this._isMoved = false;
-        this._shadow.classList.remove("hystmodal__shadow--show");
+        HystModal._shadow.classList.remove("hystmodal__shadow--show");
         this.openedWindow.setAttribute('aria-hidden', 'true');
 
         if (this.config.catchFocus) this.focusContol();
@@ -161,8 +167,6 @@ export default class {
         }
     }
 
-
-
     focusContol(){
         const nodes = this.openedWindow.querySelectorAll(this._focusElements);
         if (this.isOpened && this.starter) {
@@ -172,7 +176,7 @@ export default class {
         }
     }
 
-
+    
     focusCatcher(e){
         const nodes = this.openedWindow.querySelectorAll(this._focusElements);
         const nodesArray = Array.prototype.slice.call(nodes);

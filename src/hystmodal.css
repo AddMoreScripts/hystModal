@@ -41,10 +41,11 @@
     z-index: 99;
     visibility: hidden;
 }
-.hystmodal--active,
-.hystmodal--moved{
+.hystmodal--active{
     opacity: 1;
-    z-index: 99;
+}
+.hystmodal--moved,
+.hystmodal--active{
     pointer-events: auto;
     visibility: visible;
 }
