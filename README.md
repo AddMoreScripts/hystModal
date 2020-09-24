@@ -17,20 +17,23 @@ Lightweight and flexible JavaScript modal library
 1. Download and unpack the latest version of hystModal
 2. Connect hystmodal.min.js and hystmodal.min.css from "dist" folder to the page:
 
-        <link rel="stylesheet" href="hystmodal.min.css">
-        <script src="hystmodal.min.js"></script>
+    ```html
+    <link rel="stylesheet" href="hystmodal.min.css">
+    <script src="hystmodal.min.js"></script>
+    ```
 
 3. Put the following markup in your HTML document:
 
-        <div class="hystmodal" id="myModal" aria-hidden="true">
-            <div class="hystmodal__wrap">
-                <div class="hystmodal__window" role="dialog" aria-modal="true">
-                    <button data-hystclose class="hystmodal__close">Close</button>  
-                    <!-- You modal HTML markup -->
-                </div>
-            </div> 
-        </div>
-
+    ```html
+    <div class="hystmodal" id="myModal" aria-hidden="true">
+        <div class="hystmodal__wrap">
+            <div class="hystmodal__window" role="dialog" aria-modal="true">
+                <button data-hystclose class="hystmodal__close">Close</button>  
+                <!-- You modal HTML markup -->
+            </div>
+        </div> 
+    </div>
+    ```
    
 **.hystmodal**  - Main selector of the modal. It must have a unique id attribure. This selector don't get focus when modal is closed, due CSS rules visbility:hidden. Attribute aria-hidden is switches automatically.
 
@@ -42,14 +45,18 @@ Lightweight and flexible JavaScript modal library
 
 4. Place following JS code for activating functionality of modals:
 
-        const myModal = new HystModal({
-            linkAttributeName: "data-hystmodal",
-            //settings (optional). see Configuration
-        });
+    ```js
+    const myModal = new HystModal({
+        linkAttributeName: "data-hystmodal",
+        //settings (optional). see Configuration
+    });
+    ```
 
 5. Add attribute data-hystmodal on element that will be opening the modal window. Value of the attribute must be CSS selector (id or class name of the window). For example:
 
-        <a href="#" data-hystmodal="#myModal">Open modal with id=myModal</a>
+    ```html
+    <a href="#" data-hystmodal="#myModal">Open modal with id=myModal</a>
+    ```
 
 Title of data-attribute, which opening the modals, is defined by value of the property linkAttributeName of the configurations object.
 
@@ -72,21 +79,22 @@ Title of data-attribute, which opening the modals, is defined by value of the pr
 
 ## Configuration example
 
-    const myModal = new HystModal({
-        linkAttributeName: 'data-hystmodal',
-        catchFocus: true,
-        waitTransitions: true,
-        closeOnEsc: false,
-        beforeOpen: function(modal){
-            console.log('Message before opening the modal');
-            console.log(modal); //modal window object
-        },
-        afterClose: function(modal){
-            console.log('Message after modal has closed');
-            console.log(modal); //modal window object
-        },
-    });
-
+```html
+const myModal = new HystModal({
+    linkAttributeName: 'data-hystmodal',
+    catchFocus: true,
+    waitTransitions: true,
+    closeOnEsc: false,
+    beforeOpen: function(modal){
+        console.log('Message before opening the modal');
+        console.log(modal); //modal window object
+    },
+    afterClose: function(modal){
+        console.log('Message after modal has closed');
+        console.log(modal); //modal window object
+    },
+});
+```
 
 ## API
 
