@@ -68,11 +68,11 @@ Title of data-attribute, which opening the modals, is defined by value of the pr
 |Parameter|Type|Default|Description|
 |--|--|--|--|
 |linkAttributeName|String|Empty string|Define data-attribute of selector, which will be opening modal window on mouse click. Value of this attribute in HTML tag must be equal of CSS selector (id or class) of the modal window selector, which need to be open. If the property is not defined, event handlers will not be activated.|
-|closeOnOverlay|Bolean|true|Allow/disallow closing windows by click or tap on overlay (selector with class .hystmodal__wrap )|
-|closeOnEsc|Bolean|true|Allow/disallow closing windows by pressing ESC on the keyboard|
-|closeOnButton|Bolean|true|Allow/disallow closing windows by click on element with attribute data-hystclose. If there are multiple selectors with this attribute, modal window will closed by click on any of this|
-|waitTransitions|Bolean|false|If true – modal window will be closed after ending of CSS-transition of elements .hystmodal__window. If false – modal window will be closed instantly. So that the opening also took place instantly – delete CSS property transition of .hystmodal__window and set the option waitTransitions:false.|
-|catchFocus|Bolean|true|If true – when modal window is opened, focus will looped on active elements inside modal. When modal window closing, focus returning on previous selector.|
+|closeOnOverlay|Boolean|true|Allow/disallow closing windows by click or tap on overlay (selector with class .hystmodal__wrap )|
+|closeOnEsc|Boolean|true|Allow/disallow closing windows by pressing ESC on the keyboard|
+|closeOnButton|Boolean|true|Allow/disallow closing windows by click on element with attribute data-hystclose. If there are multiple selectors with this attribute, modal window will closed by click on any of this|
+|waitTransitions|Boolean|false|If true – modal window will be closed after ending of CSS-transition of elements .hystmodal__window. If false – modal window will be closed instantly. So that the opening also took place instantly – delete CSS property transition of .hystmodal__window and set the option waitTransitions:false.|
+|catchFocus|Boolean|true|If true – when modal window is opened, focus will looped on active elements inside modal. When modal window closing, focus returning on previous selector.|
 |beforeOpen|function|Empty function|Callback function. Run before opening of the modal. A modal window object (see API) is passed to the function as argument.|
 |afterClose|function|Empty function|Callback function. Run after closing of the modal. A modal window object (see API) of the closed window is passed to the function as argument.|
 
@@ -106,7 +106,7 @@ When creating an instance of a class HystModal by code new HystModal({ ... }), v
 
 |Title|Type|Description|
 |--|--|--|
-|isOpened|Bolean|Modal open indicator. True - modal window is open in this moment. False - by default. Many private methods of the library are guided by the value of this property.|
+|isOpened|Boolean|Modal open indicator. True - modal window is open in this moment. False - by default. Many private methods of the library are guided by the value of this property.|
 |openedWindow|DOM node|Selector of current opened modal window. If window is closed - contain selector of last opened window.|
 |starter|DOM node|Selector from which the modal window was opened. Used to return focus to an element.|
 |config|object|Configuration object. See Configuration.|
