@@ -8,6 +8,7 @@ export default class HystModal{
             closeOnButton: true,
             waitTransitions: false,
             catchFocus: true,
+            fixedSelectors: "*[data-hystfixed]",
             beforeOpen: ()=>{},
             afterClose: ()=>{},
         }
@@ -185,8 +186,10 @@ export default class HystModal{
             e.preventDefault();
         } else {
             const focusedItemIndex = nodesArray.indexOf(document.activeElement)
+            console.log(focusedItemIndex);
             if (e.shiftKey && focusedItemIndex === 0) {
-                focusableNodes[nodesArray.length - 1].focus();
+                nodesArray[nodesArray.length - 1].focus();
+                e.preventDefault();
             }
             if (!e.shiftKey && focusedItemIndex === nodesArray.length - 1) {
                 nodesArray[0].focus();
@@ -198,10 +201,17 @@ export default class HystModal{
 
     _bodyScrollControl(){
         if(!this.config.backscroll) return;
+
+        // collect fixel selectors to array
+        let fixedSelectors = Array.prototype.slice.call(document.querySelectorAll(this.config.fixedSelectors));
+        
         let html = document.documentElement;
         if (this.isOpened === true) {
             html.classList.remove("hystmodal__opened");
             html.style.marginRight = "";
+            fixedSelectors.map((el)=>{
+                el.style.marginRight = "";
+            });
             window.scrollTo(0, this._scrollPosition);
             html.style.top = "";
             return;
@@ -209,8 +219,13 @@ export default class HystModal{
         this._scrollPosition = window.pageYOffset;
         let marginSize = window.innerWidth - html.clientWidth;
         html.style.top = -this._scrollPosition + "px";
+
         if (marginSize) {
             html.style.marginRight = marginSize + "px";
+            fixedSelectors.map((el)=>{
+                el.style.marginRight = parseInt(getComputedStyle(el).marginRight) + marginSize + "px";
+            });
+
         }
         html.classList.add("hystmodal__opened");
     }
