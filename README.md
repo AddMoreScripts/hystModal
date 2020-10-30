@@ -73,6 +73,8 @@ Title of data-attribute, which opening the modals, is defined by value of the pr
 |closeOnButton|Boolean|true|Allow/disallow closing windows by click on element with attribute data-hystclose. If there are multiple selectors with this attribute, modal window will closed by click on any of this|
 |waitTransitions|Boolean|false|If true – modal window will be closed after ending of CSS-transition of elements .hystmodal__window. If false – modal window will be closed instantly. So that the opening also took place instantly – delete CSS property transition of .hystmodal__window and set the option waitTransitions:false.|
 |catchFocus|Boolean|true|If true – when modal window is opened, focus will looped on active elements inside modal. When modal window closing, focus returning on previous selector.|
+|fixedSelectors|string|"*[data-hystfixed]"|Contains a css selector that adds an margin-right equal to the width of the scroll bar when opening a modal window. Useful for fixed elements on a page to avoid shifting them when opening a window. Works only if the property backscroll:true |
+|backscroll|boolean|true|If true - the scrolling will be blocked when the window is opened. If false, scrolling is not blocked (if the modal window is high, double scrolling may occur)|
 |beforeOpen|function|Empty function|Callback function. Run before opening of the modal. A modal window object (see API) is passed to the function as argument.|
 |afterClose|function|Empty function|Callback function. Run after closing of the modal. A modal window object (see API) of the closed window is passed to the function as argument.|
 
