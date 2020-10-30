@@ -170,8 +170,8 @@
 
         <div class="text-content scr4__text">
             <p><span class="num">1.</span> Скачайте и распакуйте последнюю версию hystModal</p>
-            <p class="text-links"><a href="hystmodal-v0.2.zip">Скачать HystModal (v.0.2)</a>
-            <a href="https://github.com/AddMoreScripts/hystModal"><img height="18" src="img/github-brands.svg" class="link-icon" alt="">GitHub</a></p>
+            <p class="text-links"><a href="https://github.com/AddMoreScripts/hystModal/archive/v0.4.zip">Скачать HystModal (v.0.2)</a>
+            <a href="https://github.com/AddMoreScripts/hystModal/releases"><img height="18" src="img/github-brands.svg" class="link-icon" alt="">GitHub</a></p>
             <!-- <p>Или установите в ваш проект с помощью npm:</p>
             <div class="text-code">
                 <pre><code class="html">npm install hystmodal --save</code></pre>
@@ -261,7 +261,7 @@
                     closeOnOverlay
                 </div>
                 <div class="configtable__col">
-                    Bolean
+                    boolean
                 </div>
                 <div class="configtable__col">
                     true
@@ -276,7 +276,7 @@
                     closeOnEsc
                 </div>
                 <div class="configtable__col">
-                    Bolean
+                    boolean
                 </div>
                 <div class="configtable__col">
                     true
@@ -291,7 +291,7 @@
                     closeOnButton
                 </div>
                 <div class="configtable__col">
-                    Bolean
+                    boolean
                 </div>
                 <div class="configtable__col">
                     true
@@ -306,7 +306,7 @@
                     waitTransitions
                 </div>
                 <div class="configtable__col">
-                    Bolean
+                    boolean
                 </div>
                 <div class="configtable__col">
                     false
@@ -321,13 +321,45 @@
                     catchFocus
                 </div>
                 <div class="configtable__col">
-                    Bolean
+                    boolean
                 </div>
                 <div class="configtable__col">
                     true
                 </div>
                 <div class="configtable__col">
                     Если true – при открытии зацикливает фокус на активных элементах внутри окна. При закрытии окна – фокус возвращается на предыдущий селектор.
+                </div>
+            </div><!-- //configtable__row -->
+
+
+            <div class="configtable__row flexi">
+                <div class="configtable__col">
+                    fixedSelectors
+                </div>
+                <div class="configtable__col">
+                    string
+                </div>
+                <div class="configtable__col">
+                    "*[data-hystfixed]"
+                </div>
+                <div class="configtable__col">
+                    Содержит css-селектор, к которому добавляется отступ равный ширине полосы прокрутки, при открытии модального окна. Полезно для fixed элементов на странице, чтобы избежать их сдвига при открытии окна. Работает только если свойство backscroll:true
+                </div>
+            </div><!-- //configtable__row -->
+
+
+            <div class="configtable__row flexi">
+                <div class="configtable__col">
+                    backscroll
+                </div>
+                <div class="configtable__col">
+                    boolean
+                </div>
+                <div class="configtable__col">
+                    true
+                </div>
+                <div class="configtable__col">
+                    Если true - прокрутка страницы блокируется при открытии окна. Если false - прокрутка не блокируется (при высоком модальном окне, возможно появление двойного скрола)
                 </div>
             </div><!-- //configtable__row -->
 
@@ -415,7 +447,7 @@
                         isOpened
                     </div>
                     <div class="configtable__col">
-                        Bolean
+                        boolean
                     </div>
                     <div class="configtable__col">
                         Индикатор открытия окна. True – окно открыто в текущий момент. По умолчанию – false. Некоторые приватные методы ориентируются на значение данного свойства.

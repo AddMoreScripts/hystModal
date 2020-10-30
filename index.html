@@ -170,8 +170,8 @@
 
         <div class="text-content scr4__text">
             <p><span class="num">1.</span> Download and unpack the latest version of hystModal</p>
-            <p class="text-links"><a href="hystmodal-v0.2.zip">Download HystModal (v.0.2)</a>
-            <a href="https://github.com/AddMoreScripts/hystModal"><img height="18" src="img/github-brands.svg" class="link-icon" alt="">GitHub</a></p>
+            <p class="text-links"><a href="https://github.com/AddMoreScripts/hystModal/archive/v0.4.zip">Download HystModal (v0.4)</a>
+            <a href="https://github.com/AddMoreScripts/hystModal/releases"><img height="18" src="img/github-brands.svg" class="link-icon" alt="">GitHub</a></p>
             <!-- <p>Или установите в ваш проект с помощью npm:</p>
             <div class="text-code">
                 <pre><code class="html">npm install hystmodal --save</code></pre>
@@ -261,7 +261,7 @@
                     closeOnOverlay
                 </div>
                 <div class="configtable__col">
-                    Bolean
+                    boolean
                 </div>
                 <div class="configtable__col">
                     true
@@ -276,7 +276,7 @@
                     closeOnEsc
                 </div>
                 <div class="configtable__col">
-                    Bolean
+                    boolean
                 </div>
                 <div class="configtable__col">
                     true
@@ -291,7 +291,7 @@
                     closeOnButton
                 </div>
                 <div class="configtable__col">
-                    Bolean
+                    boolean
                 </div>
                 <div class="configtable__col">
                     true
@@ -306,7 +306,7 @@
                     waitTransitions
                 </div>
                 <div class="configtable__col">
-                    Bolean
+                    boolean
                 </div>
                 <div class="configtable__col">
                     false
@@ -321,13 +321,45 @@
                     catchFocus
                 </div>
                 <div class="configtable__col">
-                    Bolean
+                    boolean
                 </div>
                 <div class="configtable__col">
                     true
                 </div>
                 <div class="configtable__col">
                     If true – when modal window is opened, focus will looped on active elements inside modal. When modal window closing, focus returning on previous selector.
+                </div>
+            </div><!-- //configtable__row -->
+
+
+            <div class="configtable__row flexi">
+                <div class="configtable__col">
+                    fixedSelectors
+                </div>
+                <div class="configtable__col">
+                    string
+                </div>
+                <div class="configtable__col">
+                    "*[data-hystfixed]"
+                </div>
+                <div class="configtable__col">
+                    Contains a css selector that adds an margin-right equal to the width of the scroll bar when opening a modal window. Useful for fixed elements on a page to avoid shifting them when opening a window. Works only if the property backscroll:true
+                </div>
+            </div><!-- //configtable__row -->
+
+
+            <div class="configtable__row flexi">
+                <div class="configtable__col">
+                    backscroll
+                </div>
+                <div class="configtable__col">
+                    boolean
+                </div>
+                <div class="configtable__col">
+                    true
+                </div>
+                <div class="configtable__col">
+                    If true - the scrolling will be blocked when the window is opened. If false, scrolling is not blocked (if the modal window is high, double scrolling may occur)
                 </div>
             </div><!-- //configtable__row -->
 
@@ -415,7 +447,7 @@
                         isOpened
                     </div>
                     <div class="configtable__col">
-                        Bolean
+                        boolean
                     </div>
                     <div class="configtable__col">
                         Modal open indicator. True - modal window is open in this moment. False - by default. Many private methods of the library are guided by the value of this property.
