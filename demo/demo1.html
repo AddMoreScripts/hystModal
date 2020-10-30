@@ -28,6 +28,16 @@
     </div>
 
 
+    <div class="fxied-el" data-hystfixed>
+        Пример фиксированного элемента на весь экран. Когда скролл пропадает - к элементу добавляется margin-right
+    </div>
+
+    <div class="fxied-el2" data-hystfixed>
+        Элемент справа
+    </div>
+
+
+
 
     <div class="hystmodal" id="modalSimple" aria-hidden="true">
         <div class="hystmodal__wrap">
@@ -133,6 +143,7 @@
             // linkAttributeName: false,
             catchFocus: true,
             closeOnEsc: true,
+            backscroll: true,
             beforeOpen: function(modal){
                 console.log('Message before opening the modal');
                 console.log(modal); //modal window object

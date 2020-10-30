@@ -353,3 +353,38 @@ button{
     height: 56px;
     font-weight: 500;
 }
+
+
+
+
+
+
+
+
+.fxied-el,
+.fxied-el2{
+    display: block;
+    position: fixed;
+    z-index: 9;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 30px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    background-color: #2E3C56;
+    color:#fff;
+    font-size: 14px;
+}
+.fxied-el2{
+    left: auto;
+    top:auto;
+    bottom: 30px;
+    width: auto;
+    padding: 10px;
+    text-align: center;
+    margin-right: 2rem;
+    right: 30px;
+}
