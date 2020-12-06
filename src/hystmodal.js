@@ -113,7 +113,7 @@ export default class HystModal{
             }
         }
         if (!this._nextWindows) {
-            console.log("Warinig: hustModal selector is not found");
+            console.log("Warning: hystModal selector is not found");
             return;
         }
         if (this.isOpened) {
@@ -128,7 +128,7 @@ export default class HystModal{
         HystModal._shadow.classList.add("hystmodal__shadow--show");
         this.openedWindow.classList.add("hystmodal--active");
         this.openedWindow.setAttribute('aria-hidden', 'false');
-        if (this.config.catchFocus) this.focusContol();
+        if (this.config.catchFocus) this.focusControl();
         this.isOpened = true;
     }
 
@@ -156,7 +156,7 @@ export default class HystModal{
         HystModal._shadow.classList.remove("hystmodal__shadow--show");
         this.openedWindow.setAttribute('aria-hidden', 'true');
 
-        if (this.config.catchFocus) this.focusContol();
+        if (this.config.catchFocus) this.focusControl();
         this._bodyScrollControl();
         this.isOpened = false;
         this.openedWindow.scrollTop = 0;
@@ -168,7 +168,7 @@ export default class HystModal{
         }
     }
 
-    focusContol(){
+    focusControl(){
         const nodes = this.openedWindow.querySelectorAll(this._focusElements);
         if (this.isOpened && this.starter) {
             this.starter.focus();
@@ -177,7 +177,7 @@ export default class HystModal{
         }
     }
 
-    
+
     focusCatcher(e){
         const nodes = this.openedWindow.querySelectorAll(this._focusElements);
         const nodesArray = Array.prototype.slice.call(nodes);
@@ -202,9 +202,9 @@ export default class HystModal{
     _bodyScrollControl(){
         if(!this.config.backscroll) return;
 
-        // collect fixel selectors to array
+        // collect fixed selectors to array
         let fixedSelectors = Array.prototype.slice.call(document.querySelectorAll(this.config.fixedSelectors));
-        
+
         let html = document.documentElement;
         if (this.isOpened === true) {
             html.classList.remove("hystmodal__opened");
