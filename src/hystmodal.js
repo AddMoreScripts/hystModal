@@ -26,11 +26,11 @@ export default class HystModal{
     init(){
         this.isOpened = false;
         this.openedWindow = false;
-        this.starter = false,
+        this.starter = false;
         this._nextWindows = false;
         this._scrollPosition = 0;
         this._reopenTrigger = false;
-        this._overlayChecker = false,
+        this._overlayChecker = false;
         this._isMoved = false;
         this._focusElements = [
             'a[href]',
@@ -88,7 +88,7 @@ export default class HystModal{
                 }
                 this._overlayChecker = false;
             }.bind(this));
-        };
+        }
 
         window.addEventListener("keydown", function (e) {
             if (!this._isMoved && this.config.closeOnEsc && e.which == 27 && this.isOpened) {
