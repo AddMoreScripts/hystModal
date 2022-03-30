@@ -1,6 +1,6 @@
 {
   "name": "hystmodal",
-  "version": "0.0.2",
+  "version": "0.5.0",
   "description": "Lightweight and flexible JavaScript modal library",
   "main": "src/hystmodal.js",
   "scripts": {
@@ -28,9 +28,12 @@
     "element-closest-polyfill": "^1.0.2"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.17.0",
     "@babel/core": "^7.11.4",
     "@babel/plugin-transform-object-assign": "^7.10.4",
     "@babel/preset-env": "^7.11.0",
+    "eslint": "^8.10.0",
+    "eslint-config-airbnb-base": "^15.0.0",
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.0.3",

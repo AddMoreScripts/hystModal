@@ -8,6 +8,16 @@
     outline: 2px dotted #afb3b9;
     outline-offset: 2px;
 }
+::-webkit-scrollbar { /* chrome based */
+    width: 0px;  /* ширина scrollbar'a */
+    background: transparent;  /* опционально */
+}
+
+html {
+    -ms-overflow-style: none;  /* IE 10+ */
+    scrollbar-width: none; /* Firefox */
+}
+
 .container{
     max-width: 1200px;
     margin:0 auto;
