@@ -193,7 +193,8 @@ export default class HystModal {
     if (!this.config.backscroll) return;
 
     // collect fixed selectors to array
-    const fixedSelectors = document.querySelectorAll(this.config.fixedSelectors);
+    const fixedSelectorsElems = document.querySelectorAll(this.config.fixedSelectors);
+    const fixedSelectors = Array.prototype.slice.call(fixedSelectorsElems);
 
     const html = document.documentElement;
     if (this.isOpened === true) {
