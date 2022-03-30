@@ -1,8 +1,11 @@
 {
   "name": "hystmodal",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Lightweight and flexible JavaScript modal library",
   "main": "src/hystmodal.js",
+  "module": "src/hystmodal.js",
+  "style": "src/hystmodal.css",
+  "files": ["src/hystmodal.js", "src/hystmodal.css", "dist/hystmodal.min.js", "dist/hystmodal.min.css", "README.MD"],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
