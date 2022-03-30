@@ -186,7 +186,7 @@ export default class HystModal{
             e.preventDefault();
         } else {
             const focusedItemIndex = nodesArray.indexOf(document.activeElement)
-            console.log(focusedItemIndex);
+            
             if (e.shiftKey && focusedItemIndex === 0) {
                 nodesArray[nodesArray.length - 1].focus();
                 e.preventDefault();
