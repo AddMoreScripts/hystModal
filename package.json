@@ -1,15 +1,17 @@
 {
   "name": "hystmodal",
-  "version": "0.5.1",
+  "version": "1.0.0-beta.0",
+  "type": "module",
   "description": "Lightweight and flexible JavaScript modal library",
-  "main": "src/hystmodal.js",
-  "module": "src/hystmodal.js",
-  "style": "src/hystmodal.css",
-  "files": ["src/hystmodal.js", "src/hystmodal.css", "dist/hystmodal.min.js", "dist/hystmodal.min.css", "README.MD"],
+  "main": "dist/hystmodal.min.js",
+  "module": "dist/hystmodal.esm.js",
+  "types": "lib/index.d.ts",
+  "style": "dist/style.css",
+  "files": ["dist/", "lib/", "README.MD"],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
-    "dev": "webpack --mode development"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
   "repository": {
     "type": "git",
@@ -28,28 +30,15 @@
   },
   "homepage": "https://github.com/AddMoreScripts/hystModal#readme",
   "dependencies": {
-    "element-closest-polyfill": "^1.0.2"
+    "tua-body-scroll-lock": "^1.2.1"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.17.0",
-    "@babel/core": "^7.11.4",
-    "@babel/plugin-transform-object-assign": "^7.10.4",
-    "@babel/preset-env": "^7.11.0",
+    "typescript": "^4.9.3",
+    "vite": "^4.1.0",
     "eslint": "^8.10.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "babel-loader": "^8.1.0",
-    "clean-webpack-plugin": "^3.0.0",
-    "copy-webpack-plugin": "^6.0.3",
-    "css-loader": "^4.2.2",
-    "file-loader": "^6.0.0",
-    "mini-css-extract-plugin": "^0.11.0",
-    "optimize-css-assets-webpack-plugin": "^5.0.3",
-    "style-loader": "^1.2.1",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
+    "eslint-config-airbnb-base": "^15.0.0"
   },
   "browserslist": [
-    "defaults",
-    "IE 11"
+    "defaults"
   ]
 }

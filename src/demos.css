@@ -8,15 +8,7 @@
     outline: 2px dotted #afb3b9;
     outline-offset: 2px;
 }
-::-webkit-scrollbar { /* chrome based */
-    width: 0px;  /* ширина scrollbar'a */
-    background: transparent;  /* опционально */
-}
 
-html {
-    -ms-overflow-style: none;  /* IE 10+ */
-    scrollbar-width: none; /* Firefox */
-}
 
 .container{
     max-width: 1200px;
@@ -31,7 +23,6 @@ html, body{
     background: #f9f9fb;
 }
 body{
-    overflow-x: hidden;
     min-height: 2000px;
 }
 input, button, textarea, select{
@@ -222,15 +213,17 @@ button{
 }
 
 
-
-.hystmodal--video .hystmodal__window{
+.hystmodal--video{
     position: relative;
-    width: 900px;
-    padding: 0;
-    height: 470px;
+    width: 300px;
+    transform: translate(-100%);
+    height: 100%;
+    margin: auto 0 0;
+    opacity: 1;
+    align-self: flex-start;
     box-sizing:content-box;
     background-color: #000;
-    
+    padding: 0;
 }
 .hystmodal--video iframe{
     position: absolute;
@@ -375,7 +368,7 @@ button{
 .fxied-el2{
     display: block;
     position: fixed;
-    z-index: 9;
+    z-index: 11;
     left: 0;
     right: 0;
     top: 0;
