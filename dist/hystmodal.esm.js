@@ -1,100 +1,13 @@
-var A = Object.defineProperty;
-var B = (i, e, t) => e in i ? A(i, e, { enumerable: !0, configurable: !0, writable: !0, value: t }) : i[e] = t;
-var a = (i, e, t) => (B(i, typeof e != "symbol" ? e + "" : e, t), t);
-/**
- * tua-body-scroll-lock v1.2.1
- * (c) 2021 Evinma, BuptStEve
- * @license MIT
- */
-var u = function() {
-  return typeof window > "u";
-}, y = function(e) {
-  e = e || navigator.userAgent;
-  var t = /(iPad).*OS\s([\d_]+)/.test(e), s = !t && /(iPhone\sOS)\s([\d_]+)/.test(e), n = /(Android);?[\s/]+([\d.]+)?/.test(e), o = s || t;
-  return {
-    ios: o,
-    android: n
-  };
-};
-function T(i) {
-  if (u())
-    return !1;
-  if (!i)
-    throw new Error("options must be provided");
-  var e = !1, t = {
-    get passive() {
-      e = !0;
-    }
-  }, s = function() {
-  }, n = "__TUA_BSL_TEST_PASSIVE__";
-  window.addEventListener(n, s, t), window.removeEventListener(n, s, t);
-  var o = i.capture;
-  return e ? i : typeof o < "u" ? o : !1;
-}
-var p = 0, b = 0, w = 0, v = null, d = !1, c = [], S = T({
-  passive: !1
-}), _ = !u() && "scrollBehavior" in document.documentElement.style, x = function() {
-  var e = document.body, t = Object.assign({}, e.style), s = window.innerWidth - e.clientWidth;
-  return e.style.overflow = "hidden", e.style.boxSizing = "border-box", e.style.paddingRight = "".concat(s, "px"), function() {
-    ["overflow", "boxSizing", "paddingRight"].forEach(function(n) {
-      e.style[n] = t[n] || "";
-    });
-  };
-}, j = function() {
-  var e = document.documentElement, t = document.body, s = e.scrollTop || t.scrollTop, n = Object.assign({}, e.style), o = Object.assign({}, t.style);
-  return e.style.height = "100%", e.style.overflow = "hidden", t.style.top = "-".concat(s, "px"), t.style.width = "100%", t.style.height = "auto", t.style.position = "fixed", t.style.overflow = "hidden", function() {
-    e.style.height = n.height || "", e.style.overflow = n.overflow || "", ["top", "width", "height", "overflow", "position"].forEach(function(r) {
-      t.style[r] = o[r] || "";
-    }), _ ? window.scrollTo({
-      top: s,
-      // @ts-ignore
-      behavior: "instant"
-    }) : window.scrollTo(0, s);
-  };
-}, m = function(e) {
-  e.cancelable && e.preventDefault();
-}, C = function(e, t) {
-  if (t) {
-    var s = t.scrollTop, n = t.scrollLeft, o = t.scrollWidth, r = t.scrollHeight, l = t.clientWidth, L = t.clientHeight, h = e.targetTouches[0].clientX - w, f = e.targetTouches[0].clientY - b, g = Math.abs(f) > Math.abs(h), k = f > 0 && s === 0, O = h > 0 && n === 0, M = h < 0 && n + l + 1 >= o, E = f < 0 && s + L + 1 >= r;
-    if (g && (k || E) || !g && (O || M))
-      return m(e);
-  }
-  return e.stopPropagation(), !0;
-}, I = function(e) {
-  e || e !== null && process.env.NODE_ENV !== "production" && console.warn("If scrolling is also required in the floating layer, the target element must be provided.");
-}, P = function(e) {
-  if (!u()) {
-    if (I(e), y().ios) {
-      if (e) {
-        var t = Array.isArray(e) ? e : [e];
-        t.forEach(function(s) {
-          s && c.indexOf(s) === -1 && (s.ontouchstart = function(n) {
-            b = n.targetTouches[0].clientY, w = n.targetTouches[0].clientX;
-          }, s.ontouchmove = function(n) {
-            n.targetTouches.length === 1 && C(n, s);
-          }, c.push(s));
-        });
-      }
-      d || (document.addEventListener("touchmove", m, S), d = !0);
-    } else
-      p <= 0 && (v = y().android ? j() : x());
-    p += 1;
-  }
-}, z = function() {
-  if (!u()) {
-    if (p = 0, !y().ios && typeof v == "function") {
-      v();
-      return;
-    }
-    if (c.length)
-      for (var e = c.pop(); e; )
-        e.ontouchmove = null, e.ontouchstart = null, e = c.pop();
-    d && (document.removeEventListener("touchmove", m, S), d = !1);
-  }
-};
-class H {
+var h = Object.defineProperty;
+var u = (c, e, t) => e in c ? h(c, e, { enumerable: !0, configurable: !0, writable: !0, value: t }) : c[e] = t;
+var a = (c, e, t) => (u(c, typeof e != "symbol" ? e + "" : e, t), t);
+import { clearBodyLocks as f, lock as m } from "tua-body-scroll-lock";
+class r {
   constructor(e) {
-    a(this, "isInited", !1);
+    /**
+     * Останавливает открытие модального окна
+     */
+    a(this, "stopTrigger", !1);
     a(this, "openedModals", []);
     a(this, "isBodyLocked", !1);
     a(this, "isBusy", !1);
@@ -111,7 +24,7 @@ class H {
         "[data-hystfixed]"
       ]
     });
-    a(this, "_focusElements", [
+    a(this, "focusElements", [
       "a[href]",
       "area[href]",
       'input:not([disabled]):not([type="hidden"]):not([aria-hidden])',
@@ -126,77 +39,105 @@ class H {
     ]);
     this.config = Object.assign(this.config, e), this.eventsFeeler();
   }
+  /**
+   * @deprecated since version 1.0.0
+   */
+  init() {
+    return this;
+  }
   eventsFeeler() {
     let e = !1;
     document.addEventListener("click", (t) => {
       const s = t.target, n = s.closest(`[${this.config.linkAttributeName}]`);
       if (n && !this.isBusy) {
-        this.isBusy = !0;
-        const l = this.config.linkAttributeName ? n.getAttribute(this.config.linkAttributeName) : null;
-        l && this.open(l, n.hasAttribute("data-stacked"), n);
+        this.isBusy = !0, t.preventDefault();
+        const o = this.config.linkAttributeName, d = o ? n.getAttribute(o) : null;
+        d && this.open(d, n.hasAttribute("data-stacked"), n);
         return;
       }
-      if (s.closest("[data-hystclose]") && !this.isBusy) {
-        this.isBusy = !0;
-        const l = s.closest(".hystmodal");
-        l && this.close(l);
+      const i = s.closest("[data-hystclose]");
+      if (this.config.closeOnButton && i && !this.isBusy) {
+        this.isBusy = !0, t.preventDefault();
+        const o = s.closest(".hystmodal");
+        o && this.close(o);
         return;
       }
       if ((s.classList.contains("hystmodal") || s.classList.contains("hystmodal__wrap")) && e && !this.isBusy) {
-        this.isBusy = !0;
-        const l = s.closest(".hystmodal");
-        l && this.close(l);
-        return;
+        this.isBusy = !0, t.preventDefault();
+        const o = s.closest(".hystmodal");
+        o && this.close(o);
       }
     }), document.addEventListener("mousedown", ({ target: t }) => {
-      e = !1, !(!(t instanceof HTMLElement) || !(t.classList.contains("hystmodal") || t.classList.contains("hystmodal__wrap"))) && (e = !0);
+      e = !1, !(!this.config.closeOnOverlay || !(t instanceof HTMLElement) || !(t.classList.contains("hystmodal") || t.classList.contains("hystmodal__wrap"))) && (e = !0);
     }), window.addEventListener("keydown", (t) => {
       if (this.config.closeOnEsc && t.key === "Escape" && this.openedModals.length && !this.isBusy) {
-        t.preventDefault(), this.isBusy = !0, this.closeObj(this.openedModals.pop()).then(() => this.isBusy = !1);
+        t.preventDefault(), this.isBusy = !0, this.closeObj(this.openedModals.pop()).then(() => {
+          this.isBusy = !1;
+        });
         return;
       }
       this.config.catchFocus && t.key === "Tab" && this.openedModals.length && this.focusCatcher(t);
     });
   }
   async openObj(e, t = !1) {
+    if (this.config.beforeOpen && this.config.beforeOpen(e, this), this.stopTrigger) {
+      this.stopTrigger = !1;
+      return;
+    }
     if (this.config.isStacked || t) {
-      const o = this.openedModals.filter((r) => r.element === e.element);
-      for (let r = 0; r < o.length; r++)
-        await this.closeObj(o[r], !1, !0, !1);
+      const i = this.openedModals.filter((l) => l.element === e.element);
+      await Promise.all(i.map(async (l) => {
+        await this.closeObj(l, !1, !0, !1);
+      }));
     } else
       await this.closeAll(), this.openedModals = [];
     if (this.isBodyLocked || this.bodyScrollControl(e, "opening"), !e.element.querySelector(".hystmodal__window"))
-      return console.error("Warning: selector .hystmodal__window not found in modal window");
-    e.element.classList.add("hystmodal--animated"), e.element.classList.add("hystmodal--active"), e.element.style.zIndex = e.zIndex.toString(), e.element.setAttribute("aria-hidden", "false");
+      throw new Error("Warning: selector .hystmodal__window not found in modal window");
+    this.openedModals.push(e), e.element.classList.add("hystmodal--animated"), e.element.classList.add("hystmodal--active"), e.element.style.zIndex = e.zIndex.toString(), e.element.setAttribute("aria-hidden", "false");
     const n = getComputedStyle(e.element).getPropertyValue("--hystmodal-speed");
-    this.openedModals.push(e), this.focusIn(e.element), setTimeout(() => {
+    this.focusIn(e.element), setTimeout(() => {
       e.element.classList.remove("hystmodal--animated"), this.isBusy = !1;
-    }, this.cssParseSpeed(n));
+    }, r.cssParseSpeed(n));
   }
+  /**
+   * @argument selectorName CSS string of selector, ID recomended
+   * @argument isStack Whether the modal window should open above the previous one and not close it
+   * @argument starter Optional - Manually set the starter element of the modal
+  * */
   async open(e, t = this.config.isStacked, s = null) {
-    const n = this.getActiveModal(), o = e ? document.querySelector(e) : null;
-    if (!o)
-      return console.error(`Warning: selector: ${e} not found on document`);
-    const r = getComputedStyle(o).getPropertyValue("--hystmodal-zindex"), l = {
-      element: o,
+    const n = this.getActiveModal(), i = e ? document.querySelector(e) : null;
+    if (!i)
+      throw new Error(`Warning: selector: ${e} not found on document`);
+    const l = getComputedStyle(i).getPropertyValue("--hystmodal-zindex"), o = {
+      element: i,
+      openedWindow: i,
       starter: s,
-      zIndex: n ? n.zIndex + this.openedModals.length : parseInt(r),
-      isLocked: !1
+      zIndex: n ? n.zIndex + this.openedModals.length : parseInt(l, 10),
+      config: this.config,
+      isOpened: !1
     };
-    return await this.openObj(l, t), this.isBusy = !1, l;
+    return await this.openObj(o, t), this.isBusy = !1, o;
   }
   closeObj(e, t = !1, s = !1, n = !0) {
-    return new Promise((o) => {
+    return new Promise((i) => {
       if (!e)
         return;
       this.config.waitTransitions && !s && (e.element.classList.add("hystmodal--animated"), e.element.classList.add("hystmodal--moved")), e.element.classList.remove("hystmodal--active");
-      const r = getComputedStyle(e.element).getPropertyValue("--hystmodal-speed");
-      e.element.setAttribute("aria-hidden", "false"), this.openedModals = this.openedModals.filter((l) => l.element !== e.element), setTimeout(() => {
-        e.element.classList.remove("hystmodal--animated"), e.element.classList.remove("hystmodal--moved"), e.element.style.zIndex = "", this.config.backscroll && !this.openedModals.length && t && (z(), this.bodyScrollControl(e, "closing"), this.isBodyLocked = !1), this.config.catchFocus && e.starter && n && e.starter.focus(), o(e);
-      }, this.config.waitTransitions && !s ? this.cssParseSpeed(r) : 0);
+      const l = getComputedStyle(e.element).getPropertyValue("--hystmodal-speed");
+      e.element.setAttribute("aria-hidden", "false"), this.openedModals = this.openedModals.filter((o) => o.element !== e.element), setTimeout(() => {
+        e.element.classList.remove("hystmodal--animated"), e.element.classList.remove("hystmodal--moved"), e.element.style.zIndex = "", this.config.backscroll && !this.openedModals.length && t && (f(), this.bodyScrollControl(e, "closing"), this.isBodyLocked = !1), this.config.catchFocus && e.starter && n && e.starter.focus(), this.config.afterClose && this.config.afterClose(e, this), i(e);
+      }, this.config.waitTransitions && !s ? r.cssParseSpeed(l) : 0);
     });
   }
-  async close(e) {
+  /**
+   * @argument modalElem The CSS string of the modal element selector. If not passed,
+   * all open modal windows will close.
+  * */
+  async close(e = null) {
+    if (!e) {
+      const s = await this.closeAll();
+      return s.length ? s[s.length - 1] : null;
+    }
     const t = this.openedModals.find((s) => s.element === e);
     return t ? (await this.closeObj(t, !0), this.isBusy = !1, t) : null;
   }
@@ -209,11 +150,11 @@ class H {
   focusIn(e) {
     if (!this.openedModals.length)
       return;
-    const t = Array.from(e.querySelectorAll(this._focusElements.join(", ")));
+    const t = Array.from(e.querySelectorAll(this.focusElements.join(", ")));
     t.length && t[0].focus();
   }
   focusCatcher(e) {
-    const t = this.openedModals[this.openedModals.length - 1], s = Array.from(t.element.querySelectorAll(this._focusElements.join(", ")));
+    const t = this.openedModals[this.openedModals.length - 1], s = Array.from(t.element.querySelectorAll(this.focusElements.join(", ")));
     if (!t.element.contains(document.activeElement))
       s[0].focus(), e.preventDefault();
     else {
@@ -223,18 +164,18 @@ class H {
       e.shiftKey && n === 0 && (s[s.length - 1].focus(), e.preventDefault()), !e.shiftKey && n === s.length - 1 && (s[0].focus(), e.preventDefault());
     }
   }
-  cssParseSpeed(e) {
-    const t = parseFloat(e);
-    let s = e.match(/m?s/), n = s ? s[0] : null, o = 0;
+  static cssParseSpeed(e) {
+    const t = parseFloat(e), s = e.match(/m?s/), n = s ? s[0] : null;
+    let i = 0;
     switch (n) {
       case "s":
-        o = t * 1e3;
+        i = t * 1e3;
         break;
       case "ms":
-        o = t;
+        i = t;
         break;
     }
-    return o;
+    return i;
   }
   getActiveModal() {
     return this.openedModals.length ? this.openedModals[this.openedModals.length - 1] : null;
@@ -244,18 +185,18 @@ class H {
     if (t === "closing") {
       if (this.openedModals.length)
         return;
-      s.forEach((o) => {
-        o.style.marginRight = "";
+      s.forEach((i) => {
+        i.style.marginRight = "";
       }), document.documentElement.classList.remove("hystmodal__opened");
       return;
     }
-    this.config.backscroll && !this.isBodyLocked && (P(e.element), this.isBodyLocked = !0);
+    this.config.backscroll && !this.isBodyLocked && (m(e.element), this.isBodyLocked = !0);
     const n = parseFloat(document.body.style.paddingRight);
-    n && s.forEach((o) => {
-      o.style.marginRight = `${parseInt(getComputedStyle(o).marginRight, 10) + n}px`;
+    n && s.forEach((i) => {
+      i.style.marginRight = `${parseInt(getComputedStyle(i).marginRight, 10) + n}px`;
     }), document.documentElement.classList.add("hystmodal__opened");
   }
 }
 export {
-  H as default
+  r as default
 };

@@ -3,9 +3,8 @@
 
 <head>
   <meta charset="UTF-8" />
-  <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vite + TS</title>
+  <title>HystModal DEMO</title>
 </head>
 
 <body>
@@ -35,6 +34,13 @@
   </div>
 
 
+
+
+  <div class="hystmodal" id="modalLoading" aria-hidden="true">
+    <div class="hystmodal__window hystmodal__window--loading" role="dialog" aria-modal="true">
+      <button class="hystmodal__close" data-hystclose>Закрыть</button>
+    </div>
+</div>
 
 
   <div class="hystmodal" id="modalSimple" aria-hidden="true">
@@ -112,7 +118,7 @@
 
 
   <div class="hystmodal hystmodal--simple" id="modalForms" aria-hidden="true">
-    <!-- <div class="hystmodal__wrap"> -->
+    <div class="hystmodal__wrap">
       <div class="hystmodal__window hystmodal__window--form" role="dialog" aria-modal="true">
         <button class="hystmodal__close" data-hystclose>Закрыть</button>
         <div class="hystmodal__styled">
@@ -142,7 +148,7 @@
           </form>
         </div>
       </div>
-    <!-- </div> -->
+    </div>
   </div>
 
 

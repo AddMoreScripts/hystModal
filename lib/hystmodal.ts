@@ -1,15 +1,17 @@
 /* eslint-disable no-param-reassign */
-/* eslint-disable no-underscore-dangle */
-
 import { clearBodyLocks, lock } from 'tua-body-scroll-lock';
-import { HystModalConfig, HystModalInstance } from '.';
 import './hystmodal.css';
 
-export default class HystModal {
-  isInited: boolean = false;
+class HystModal {
+  /** If true - Stops the modal from opening */
+  stopTrigger = false;
+
   openedModals: HystModalInstance[] = [];
+
   isBodyLocked: boolean = false;
-  isBusy: boolean = false;
+
+  private isBusy: boolean = false;
+
   config: HystModalConfig = {
     linkAttributeName: 'data-hystmodal',
     closeOnEsc: true,
@@ -23,7 +25,8 @@ export default class HystModal {
       '[data-hystfixed]',
     ],
   };
-  _focusElements: string[] = [
+
+  private focusElements: string[] = [
     'a[href]',
     'area[href]',
     'input:not([disabled]):not([type="hidden"]):not([aria-hidden])',
@@ -42,38 +45,47 @@ export default class HystModal {
     this.eventsFeeler();
   }
 
-  eventsFeeler() {
+  /**
+   * @deprecated since version 1.0.0
+   */
+  init() { return this; }
+
+  private eventsFeeler() {
     let isOverlayCheker = false;
-    document.addEventListener('click', e => {
+    document.addEventListener('click', (e) => {
       const eventTarget = e.target as HTMLElement;
       const starterElement: HTMLElement | null = eventTarget.closest(`[${this.config.linkAttributeName}]`);
 
       if (starterElement && !this.isBusy) {
         this.isBusy = true;
-        const selectorName = this.config.linkAttributeName ? starterElement.getAttribute(this.config.linkAttributeName) : null;
-        selectorName && this.open(selectorName, starterElement.hasAttribute('data-stacked'), starterElement);
+        e.preventDefault();
+        const attr = this.config.linkAttributeName;
+        const selectorName = attr ? starterElement.getAttribute(attr) : null;
+        if (selectorName) this.open(selectorName, starterElement.hasAttribute('data-stacked'), starterElement);
         return;
       }
 
-      const terminator = eventTarget.closest(`[data-hystclose]`);
-      if (terminator && !this.isBusy) {
+      const terminator = eventTarget.closest('[data-hystclose]');
+      if (this.config.closeOnButton && terminator && !this.isBusy) {
         this.isBusy = true;
+        e.preventDefault();
         const modalEl = eventTarget.closest<HTMLElement>('.hystmodal');
-        modalEl ? this.close(modalEl) : null;
+        if (modalEl) this.close(modalEl);
         return;
       }
 
       const bg = eventTarget.classList.contains('hystmodal') || eventTarget.classList.contains('hystmodal__wrap');
       if (bg && isOverlayCheker && !this.isBusy) {
         this.isBusy = true;
+        e.preventDefault();
         const modalEl = eventTarget.closest<HTMLElement>('.hystmodal');
-        modalEl ? this.close(modalEl) : null;
-        return;
+        if (modalEl) this.close(modalEl);
       }
     });
 
     document.addEventListener('mousedown', ({ target }) => {
       isOverlayCheker = false;
+      if (!this.config.closeOnOverlay) return;
       if (!(target instanceof HTMLElement)) return;
       const isTargetValid = target.classList.contains('hystmodal') || target.classList.contains('hystmodal__wrap');
       if (!isTargetValid) return;
@@ -84,7 +96,7 @@ export default class HystModal {
       if (this.config.closeOnEsc && e.key === 'Escape' && this.openedModals.length && !this.isBusy) {
         e.preventDefault();
         this.isBusy = true;
-        this.closeObj(this.openedModals.pop()).then(() => this.isBusy = false);
+        this.closeObj(this.openedModals.pop()).then(() => { this.isBusy = false; });
         return;
       }
       if (this.config.catchFocus && e.key === 'Tab' && this.openedModals.length) {
@@ -94,52 +106,69 @@ export default class HystModal {
   }
 
   private async openObj(modal: HystModalInstance, isStack: boolean = false) {
+    if (this.config.beforeOpen) this.config.beforeOpen(modal, this);
+    if (this.stopTrigger) {
+      this.stopTrigger = false;
+      return;
+    }
     if (this.config.isStacked || isStack) {
       const needClose = this.openedModals.filter((m) => m.element === modal.element);
-      for (let i = 0; i < needClose.length; i++) {
-        await this.closeObj(needClose[i], false, true, false);
-      }
+      await Promise.all(needClose.map(async (m) => {
+        await this.closeObj(m, false, true, false);
+      }));
     } else {
       await this.closeAll();
       this.openedModals = [];
     }
-    if (!this.isBodyLocked) this.bodyScrollControl(modal, "opening");
+    if (!this.isBodyLocked) this.bodyScrollControl(modal, 'opening');
     const windowEl = modal.element.querySelector('.hystmodal__window');
-    if (!windowEl) return console.error(`Warning: selector .hystmodal__window not found in modal window`);
+    if (!windowEl) throw new Error('Warning: selector .hystmodal__window not found in modal window');
+    this.openedModals.push(modal);
     modal.element.classList.add('hystmodal--animated');
     modal.element.classList.add('hystmodal--active');
     modal.element.style.zIndex = modal.zIndex.toString();
     modal.element.setAttribute('aria-hidden', 'false');
     const speed = getComputedStyle(modal.element).getPropertyValue('--hystmodal-speed');
-    this.openedModals.push(modal);
     this.focusIn(modal.element);
     setTimeout(() => {
       modal.element.classList.remove('hystmodal--animated');
       this.isBusy = false;
-    }, this.cssParseSpeed(speed));
+    }, HystModal.cssParseSpeed(speed));
   }
 
+  /**
+   * @argument selectorName CSS string of selector, ID recomended
+   * @argument isStack Whether the modal window should open above the previous one and not close it
+   * @argument starter Optional - Manually set the starter element of the modal
+  * */
   async open(
     selectorName: string,
     isStack: boolean | undefined = this.config.isStacked,
-    starter: HTMLElement | null = null
-  ): Promise<HystModalInstance| void> {
+    starter: HTMLElement | null = null,
+  ): Promise<HystModalInstance | void> {
     const activeModal = this.getActiveModal();
-    const targetSelector: HTMLElement | null = selectorName ? document.querySelector(selectorName) : null;
-    if (!targetSelector) return console.error(`Warning: selector: ${selectorName} not found on document`);
-    const zIndex = getComputedStyle(targetSelector).getPropertyValue('--hystmodal-zindex');
-    const newModal: HystModalInstance= {
-      element: targetSelector,
-      starter: starter,
-      zIndex: activeModal ? activeModal.zIndex + this.openedModals.length : parseInt(zIndex),
-      isLocked: false,
-    }
+    const target: HTMLElement | null = selectorName ? document.querySelector(selectorName) : null;
+    if (!target) throw new Error(`Warning: selector: ${selectorName} not found on document`);
+    const zIndex = getComputedStyle(target).getPropertyValue('--hystmodal-zindex');
+    const newModal: HystModalInstance = {
+      element: target,
+      openedWindow: target,
+      starter,
+      zIndex: activeModal ? activeModal.zIndex + this.openedModals.length : parseInt(zIndex, 10),
+      config: this.config,
+      isOpened: false,
+    };
     await this.openObj(newModal, isStack);
     this.isBusy = false;
     return newModal;
   }
 
-  private closeObj(modal: HystModalInstance| undefined, isUnlock: boolean = false, isForceImmediately: boolean = false, isFocusBack: boolean = true): Promise<any> {
+  private closeObj(
+    modal: HystModalInstance | undefined,
+    isUnlock: boolean = false,
+    isForceImmediately: boolean = false,
+    isFocusBack: boolean = true,
+  ): Promise<any> {
     return new Promise((resolve) => {
       if (!modal) return;
       if (this.config.waitTransitions && !isForceImmediately) {
@@ -156,17 +185,26 @@ export default class HystModal {
         modal.element.style.zIndex = '';
         if (this.config.backscroll && !this.openedModals.length && isUnlock) {
           clearBodyLocks();
-          this.bodyScrollControl(modal, "closing");
+          this.bodyScrollControl(modal, 'closing');
           this.isBodyLocked = false;
         }
         if (this.config.catchFocus && modal.starter && isFocusBack) modal.starter.focus();
+        if (this.config.afterClose) this.config.afterClose(modal, this);
         resolve(modal);
-      }, this.config.waitTransitions && !isForceImmediately ? this.cssParseSpeed(speed) : 0);
+      }, this.config.waitTransitions && !isForceImmediately ? HystModal.cssParseSpeed(speed) : 0);
     });
   }
 
-  async close(modalElem: HTMLElement): Promise<HystModalInstance| null> {
-    const needModalObject = this.openedModals.find(elem => elem.element === modalElem);
+  /**
+   * @argument modalElem The CSS string of the modal element selector. If not passed,
+   * all open modal windows will close.
+  * */
+  async close(modalElem: HTMLElement | null = null): Promise<HystModalInstance | null> {
+    if (!modalElem) {
+      const list = await this.closeAll();
+      return list.length ? list[list.length - 1] : null;
+    }
+    const needModalObject = this.openedModals.find((elem) => elem.element === modalElem);
     if (!needModalObject) return null;
     await this.closeObj(needModalObject, true);
     this.isBusy = false;
@@ -186,13 +224,13 @@ export default class HystModal {
 
   private focusIn(modalEl: HTMLElement) {
     if (!this.openedModals.length) return;
-    const nodes: HTMLElement[] = Array.from(modalEl.querySelectorAll(this._focusElements.join(', ')));
+    const nodes: HTMLElement[] = Array.from(modalEl.querySelectorAll(this.focusElements.join(', ')));
     if (nodes.length) nodes[0].focus();
   }
 
   private focusCatcher(e: KeyboardEvent) {
     const activeWindow = this.openedModals[this.openedModals.length - 1];
-    const nodes: HTMLElement[] = Array.from(activeWindow.element.querySelectorAll(this._focusElements.join(', ')));
+    const nodes: HTMLElement[] = Array.from(activeWindow.element.querySelectorAll(this.focusElements.join(', ')));
     if (!activeWindow.element.contains(document.activeElement)) {
       nodes[0].focus();
       e.preventDefault();
@@ -210,23 +248,25 @@ export default class HystModal {
     }
   }
 
-  private cssParseSpeed(speed: string): number {
+  static cssParseSpeed(speed: string): number {
     const num = parseFloat(speed);
-    let units = speed.match(/m?s/);
-    let unit: string | null = units ? units[0] : null;
+    const units = speed.match(/m?s/);
+    const unit: string | null = units ? units[0] : null;
     let milliseconds: number = 0;
     switch (unit) {
-      case "s":
+      case 's':
         milliseconds = num * 1000;
         break;
-      case "ms":
+      case 'ms':
         milliseconds = num;
+        break;
+      default:
         break;
     }
     return milliseconds;
   }
 
-  private getActiveModal(): HystModalInstance| null {
+  private getActiveModal(): HystModalInstance | null {
     if (!this.openedModals.length) return null;
     return this.openedModals[this.openedModals.length - 1];
   }
@@ -245,7 +285,7 @@ export default class HystModal {
       lock(modal.element);
       this.isBodyLocked = true;
     }
-    const marginSize = parseFloat(document.body.style.paddingRight)
+    const marginSize = parseFloat(document.body.style.paddingRight);
     if (marginSize) {
       fixedSelectors.forEach((el) => {
         el.style.marginRight = `${parseInt(getComputedStyle(el).marginRight, 10) + marginSize}px`;
@@ -255,3 +295,30 @@ export default class HystModal {
   }
 }
 
+interface HystModalInstance {
+  element: HTMLElement,
+  zIndex: number,
+  starter: HTMLElement | null,
+  config: HystModalConfig,
+  /** @deprecated use HystModal.openedModals property to list of opened modals */
+  isOpened: boolean,
+  /** @deprecated use "element" property instead */
+  openedWindow: HTMLElement,
+}
+
+interface HystModalConfig {
+  linkAttributeName?: string;
+  closeOnOverlay?: boolean;
+  closeOnEsc?: boolean;
+  closeOnButton?: boolean;
+  waitTransitions?: boolean;
+  catchFocus?: boolean;
+  fixedSelectors?: string[];
+  backscroll?: boolean;
+  beforeOpen?: (modalWindow: HystModalInstance, instance: HystModal) => boolean | void;
+  afterClose?: (modalWindow: HystModalInstance, instance: HystModal) => boolean | void;
+  isStacked?: boolean;
+}
+
+export type { HystModalInstance, HystModalConfig };
+export default HystModal;

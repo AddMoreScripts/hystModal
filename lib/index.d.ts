@@ -1,20 +1,4 @@
-interface HystModalInstance {
-  element: HTMLElement,
-  zIndex: number,
-  starter: HTMLElement | null,
-  isLocked: boolean,
-}
-interface HystModalConfig {
-  linkAttributeName?: string;
-  closeOnOverlay?: boolean;
-  closeOnEsc?: boolean;
-  closeOnButton?: boolean;
-  waitTransitions?: boolean;
-  catchFocus?: boolean;
-  fixedSelectors?: string[];
-  backscroll?: boolean;
-  beforeOpen?: CallableFunction;
-  afterClose?: CallableFunction;
-  isStacked?: boolean;
-}
+import HystModal, { HystModalConfig, HystModalInstance } from './hystmodal';
+
+export default HystModal;
 export { HystModalInstance, HystModalConfig };

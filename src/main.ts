@@ -1,6 +1,11 @@
 import HystModal from '../lib/hystmodal';
 import './demos.css';
 
-new HystModal({
+const m = new HystModal({
   isStacked: false,
+  closeOnEsc: true,
+  closeOnButton: true,
+  closeOnOverlay: true,
+  backscroll: true,
 });
+m.closeAll();
