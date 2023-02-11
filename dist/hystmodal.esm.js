@@ -4,9 +4,7 @@ var a = (c, e, t) => (u(c, typeof e != "symbol" ? e + "" : e, t), t);
 import { clearBodyLocks as f, lock as m } from "tua-body-scroll-lock";
 class r {
   constructor(e) {
-    /**
-     * Останавливает открытие модального окна
-     */
+    /** If true - Stops the modal from opening */
     a(this, "stopTrigger", !1);
     a(this, "openedModals", []);
     a(this, "isBodyLocked", !1);
