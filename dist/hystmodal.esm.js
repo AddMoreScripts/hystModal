@@ -89,8 +89,10 @@ class r {
       }));
     } else
       await this.closeAll(), this.openedModals = [];
-    if (this.isBodyLocked || this.bodyScrollControl(e, "opening"), !e.element.querySelector(".hystmodal__window"))
-      throw new Error("Warning: selector .hystmodal__window not found in modal window");
+    if (this.isBodyLocked || this.bodyScrollControl(e, "opening"), !e.element.querySelector(".hystmodal__window")) {
+      console.error("Warning: selector .hystmodal__window not found in modal window"), this.isBusy = !1;
+      return;
+    }
     this.openedModals.push(e), e.element.classList.add("hystmodal--animated"), e.element.classList.add("hystmodal--active"), e.element.style.zIndex = e.zIndex.toString(), e.element.setAttribute("aria-hidden", "false");
     const n = getComputedStyle(e.element).getPropertyValue("--hystmodal-speed");
     this.focusIn(e.element), setTimeout(() => {
@@ -104,8 +106,10 @@ class r {
   * */
   async open(e, t = this.config.isStacked, s = null) {
     const n = this.getActiveModal(), i = e ? document.querySelector(e) : null;
-    if (!i)
-      throw new Error(`Warning: selector: ${e} not found on document`);
+    if (!i) {
+      console.error("Warning: selector .hystmodal__window not found in modal window"), this.isBusy = !1;
+      return;
+    }
     const l = getComputedStyle(i).getPropertyValue("--hystmodal-zindex"), o = {
       element: i,
       openedWindow: i,
@@ -114,7 +118,7 @@ class r {
       config: this.config,
       isOpened: !1
     };
-    return await this.openObj(o, t), this.isBusy = !1, o;
+    await this.openObj(o, t), this.isBusy = !1;
   }
   closeObj(e, t = !1, s = !1, n = !0) {
     return new Promise((i) => {

@@ -122,7 +122,11 @@ class HystModal {
     }
     if (!this.isBodyLocked) this.bodyScrollControl(modal, 'opening');
     const windowEl = modal.element.querySelector('.hystmodal__window');
-    if (!windowEl) throw new Error('Warning: selector .hystmodal__window not found in modal window');
+    if (!windowEl) {
+      console.error('Warning: selector .hystmodal__window not found in modal window');
+      this.isBusy = false;
+      return;
+    }
     this.openedModals.push(modal);
     modal.element.classList.add('hystmodal--animated');
     modal.element.classList.add('hystmodal--active');
@@ -148,7 +152,11 @@ class HystModal {
   ): Promise<HystModalInstance | void> {
     const activeModal = this.getActiveModal();
     const target: HTMLElement | null = selectorName ? document.querySelector(selectorName) : null;
-    if (!target) throw new Error(`Warning: selector: ${selectorName} not found on document`);
+    if (!target) {
+      console.error('Warning: selector .hystmodal__window not found in modal window');
+      this.isBusy = false;
+      return;
+    }
     const zIndex = getComputedStyle(target).getPropertyValue('--hystmodal-zindex');
     const newModal: HystModalInstance = {
       element: target,
@@ -160,7 +168,6 @@ class HystModal {
     };
     await this.openObj(newModal, isStack);
     this.isBusy = false;
-    return newModal;
   }
 
   private closeObj(
