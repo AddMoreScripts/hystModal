@@ -194,7 +194,7 @@ class r {
     }
     if (this.config.backscroll && !this.isBodyLocked) {
       const n = Array.from(e.element.querySelectorAll("[data-needscroll], .ss-list"));
-      m(n), this.isBodyLocked = !0;
+      n.push(e.element), m(n), this.isBodyLocked = !0;
     }
     const i = parseFloat(document.body.style.paddingRight);
     i && s.forEach((n) => {

@@ -290,6 +290,7 @@ class HystModal {
     }
     if (this.config.backscroll && !this.isBodyLocked) {
       const needScroll: HTMLElement[] = Array.from(modal.element.querySelectorAll('[data-needscroll], .ss-list'));
+      needScroll.push(modal.element);
       lock(needScroll);
       this.isBodyLocked = true;
     }
