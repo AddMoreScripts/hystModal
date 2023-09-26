@@ -46,15 +46,15 @@ class r {
   eventsFeeler() {
     let e = !1;
     document.addEventListener("click", (t) => {
-      const s = t.target, n = s.closest(`[${this.config.linkAttributeName}]`);
-      if (n && !this.isBusy) {
+      const s = t.target, i = s.closest(`[${this.config.linkAttributeName}]`);
+      if (i && !this.isBusy) {
         this.isBusy = !0, t.preventDefault();
-        const o = this.config.linkAttributeName, d = o ? n.getAttribute(o) : null;
-        d && this.open(d, n.hasAttribute("data-stacked"), n);
+        const o = this.config.linkAttributeName, d = o ? i.getAttribute(o) : null;
+        d && this.open(d, i.hasAttribute("data-stacked"), i);
         return;
       }
-      const i = s.closest("[data-hystclose]");
-      if (this.config.closeOnButton && i && !this.isBusy) {
+      const n = s.closest("[data-hystclose]");
+      if (this.config.closeOnButton && n && !this.isBusy) {
         this.isBusy = !0, t.preventDefault();
         const o = s.closest(".hystmodal");
         o && this.close(o);
@@ -83,8 +83,8 @@ class r {
       return;
     }
     if (this.config.isStacked || t) {
-      const i = this.openedModals.filter((l) => l.element === e.element);
-      await Promise.all(i.map(async (l) => {
+      const n = this.openedModals.filter((l) => l.element === e.element);
+      await Promise.all(n.map(async (l) => {
         await this.closeObj(l, !1, !0, !1);
       }));
     } else
@@ -94,10 +94,10 @@ class r {
       return;
     }
     this.openedModals.push(e), e.element.classList.add("hystmodal--animated"), e.element.classList.add("hystmodal--active"), e.element.style.zIndex = e.zIndex.toString(), e.element.setAttribute("aria-hidden", "false");
-    const n = getComputedStyle(e.element).getPropertyValue("--hystmodal-speed");
+    const i = getComputedStyle(e.element).getPropertyValue("--hystmodal-speed");
     this.focusIn(e.element), setTimeout(() => {
       e.element.classList.remove("hystmodal--animated"), this.isBusy = !1;
-    }, r.cssParseSpeed(n));
+    }, r.cssParseSpeed(i));
   }
   /**
    * @argument selectorName CSS string of selector, ID recomended
@@ -105,29 +105,29 @@ class r {
    * @argument starter Optional - Manually set the starter element of the modal
   * */
   async open(e, t = this.config.isStacked, s = null) {
-    const n = this.getActiveModal(), i = e ? document.querySelector(e) : null;
-    if (!i) {
+    const i = this.getActiveModal(), n = e ? document.querySelector(e) : null;
+    if (!n) {
       console.error("Warning: selector .hystmodal__window not found in modal window"), this.isBusy = !1;
       return;
     }
-    const l = getComputedStyle(i).getPropertyValue("--hystmodal-zindex"), o = {
-      element: i,
-      openedWindow: i,
+    const l = getComputedStyle(n).getPropertyValue("--hystmodal-zindex"), o = {
+      element: n,
+      openedWindow: n,
       starter: s,
-      zIndex: n ? n.zIndex + this.openedModals.length : parseInt(l, 10),
+      zIndex: i ? i.zIndex + this.openedModals.length : parseInt(l, 10),
       config: this.config,
       isOpened: !1
     };
     await this.openObj(o, t), this.isBusy = !1;
   }
-  closeObj(e, t = !1, s = !1, n = !0) {
-    return new Promise((i) => {
+  closeObj(e, t = !1, s = !1, i = !0) {
+    return new Promise((n) => {
       if (!e)
         return;
       this.config.waitTransitions && !s && (e.element.classList.add("hystmodal--animated"), e.element.classList.add("hystmodal--moved")), e.element.classList.remove("hystmodal--active");
       const l = getComputedStyle(e.element).getPropertyValue("--hystmodal-speed");
       e.element.setAttribute("aria-hidden", "false"), this.openedModals = this.openedModals.filter((o) => o.element !== e.element), setTimeout(() => {
-        e.element.classList.remove("hystmodal--animated"), e.element.classList.remove("hystmodal--moved"), e.element.style.zIndex = "", this.config.backscroll && !this.openedModals.length && t && (f(), this.bodyScrollControl(e, "closing"), this.isBodyLocked = !1), this.config.catchFocus && e.starter && n && e.starter.focus(), this.config.afterClose && this.config.afterClose(e, this), i(e);
+        e.element.classList.remove("hystmodal--animated"), e.element.classList.remove("hystmodal--moved"), e.element.style.zIndex = "", this.config.backscroll && !this.openedModals.length && t && (f(), this.bodyScrollControl(e, "closing"), this.isBodyLocked = !1), this.config.catchFocus && e.starter && i && e.starter.focus(), this.config.afterClose && this.config.afterClose(e, this), n(e);
       }, this.config.waitTransitions && !s ? r.cssParseSpeed(l) : 0);
     });
   }
@@ -162,22 +162,22 @@ class r {
     else {
       if (!document.activeElement)
         return;
-      const n = s.indexOf(document.activeElement);
-      e.shiftKey && n === 0 && (s[s.length - 1].focus(), e.preventDefault()), !e.shiftKey && n === s.length - 1 && (s[0].focus(), e.preventDefault());
+      const i = s.indexOf(document.activeElement);
+      e.shiftKey && i === 0 && (s[s.length - 1].focus(), e.preventDefault()), !e.shiftKey && i === s.length - 1 && (s[0].focus(), e.preventDefault());
     }
   }
   static cssParseSpeed(e) {
-    const t = parseFloat(e), s = e.match(/m?s/), n = s ? s[0] : null;
-    let i = 0;
-    switch (n) {
+    const t = parseFloat(e), s = e.match(/m?s/), i = s ? s[0] : null;
+    let n = 0;
+    switch (i) {
       case "s":
-        i = t * 1e3;
+        n = t * 1e3;
         break;
       case "ms":
-        i = t;
+        n = t;
         break;
     }
-    return i;
+    return n;
   }
   getActiveModal() {
     return this.openedModals.length ? this.openedModals[this.openedModals.length - 1] : null;
@@ -187,15 +187,18 @@ class r {
     if (t === "closing") {
       if (this.openedModals.length)
         return;
-      s.forEach((i) => {
-        i.style.marginRight = "";
+      s.forEach((n) => {
+        n.style.marginRight = "";
       }), document.documentElement.classList.remove("hystmodal__opened");
       return;
     }
-    this.config.backscroll && !this.isBodyLocked && (m(e.element), this.isBodyLocked = !0);
-    const n = parseFloat(document.body.style.paddingRight);
-    n && s.forEach((i) => {
-      i.style.marginRight = `${parseInt(getComputedStyle(i).marginRight, 10) + n}px`;
+    if (this.config.backscroll && !this.isBodyLocked) {
+      const n = Array.from(e.element.querySelectorAll("[data-needscroll], .ss-list"));
+      m(n), this.isBodyLocked = !0;
+    }
+    const i = parseFloat(document.body.style.paddingRight);
+    i && s.forEach((n) => {
+      n.style.marginRight = `${parseInt(getComputedStyle(n).marginRight, 10) + i}px`;
     }), document.documentElement.classList.add("hystmodal__opened");
   }
 }

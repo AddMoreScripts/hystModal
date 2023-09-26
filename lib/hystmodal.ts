@@ -289,7 +289,8 @@ class HystModal {
       return;
     }
     if (this.config.backscroll && !this.isBodyLocked) {
-      lock(modal.element);
+      const needScroll: HTMLElement[] = Array.from(modal.element.querySelectorAll('[data-needscroll], .ss-list'));
+      lock(needScroll);
       this.isBodyLocked = true;
     }
     const marginSize = parseFloat(document.body.style.paddingRight);
