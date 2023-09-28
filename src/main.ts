@@ -6,7 +6,7 @@ const m = new HystModal({
   closeOnEsc: true,
   closeOnButton: true,
   closeOnOverlay: true,
-  backscroll: false,
+  backscroll: true,
   waitTransitions: true,
 });
 m.closeAll();

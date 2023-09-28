@@ -96,7 +96,7 @@ class HystModal {
       if (this.config.closeOnEsc && e.key === 'Escape' && this.openedModals.length && !this.isBusy) {
         e.preventDefault();
         this.isBusy = true;
-        this.closeObj(this.openedModals.pop()).then(() => { this.isBusy = false; });
+        this.close(this.openedModals[this.openedModals.length - 1]?.element);
         return;
       }
       if (this.config.catchFocus && e.key === 'Tab' && this.openedModals.length) {

@@ -68,10 +68,9 @@ class r {
     }), document.addEventListener("mousedown", ({ target: t }) => {
       e = !1, !(!this.config.closeOnOverlay || !(t instanceof HTMLElement) || !(t.classList.contains("hystmodal") || t.classList.contains("hystmodal__wrap"))) && (e = !0);
     }), window.addEventListener("keydown", (t) => {
+      var s;
       if (this.config.closeOnEsc && t.key === "Escape" && this.openedModals.length && !this.isBusy) {
-        t.preventDefault(), this.isBusy = !0, this.closeObj(this.openedModals.pop()).then(() => {
-          this.isBusy = !1;
-        });
+        t.preventDefault(), this.isBusy = !0, this.close((s = this.openedModals[this.openedModals.length - 1]) == null ? void 0 : s.element);
         return;
       }
       this.config.catchFocus && t.key === "Tab" && this.openedModals.length && this.focusCatcher(t);
